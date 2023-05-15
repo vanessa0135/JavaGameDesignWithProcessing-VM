@@ -22,7 +22,6 @@ public class AnimatedSprite extends Sprite{
     JSONObject spriteData;
     PImage spriteSheet;
 
-
   // Constructor for AnimatedSprite with Spritesheet (Must use the TexturePacker to make the JSON)
   // https://www.codeandweb.com/texturepacker
   public AnimatedSprite(String png, float x, float y, String json) {

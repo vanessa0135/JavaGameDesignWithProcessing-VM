@@ -8,7 +8,7 @@ Grid grid = new Grid(6,8);
 PImage bg;
 PImage player1;
 PImage endScreen;
-String titleText = "NameOfYourGame";
+String titleText = "HorseChess";
 String extraText = "Who's Turn?";
 AnimatedSprite exampleSprite;
 boolean doAnimation;
@@ -157,6 +157,6 @@ public void exampleAnimationSetup(){
 //example method that animates the horse Sprites
 public void checkExampleAnimation(){
   if(doAnimation){
-    exampleSprite.animateHorizontal(1.0, 0.1, true);
+    exampleSprite.animateVertical(1.0, 0.1, true);
   }
 }

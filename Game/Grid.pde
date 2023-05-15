@@ -1,3 +1,5 @@
+
+
 public class Grid{
   
   private int rows;
