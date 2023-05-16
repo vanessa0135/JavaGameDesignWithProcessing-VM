@@ -20,4 +20,12 @@ public class GridLocation{
     return row + "," + col;
   }
   
+  public int getYCoord() {
+    return -1;
+  }
+  
+  public int getXCoord() {
+    return -1;
+  }
+ 
 }

@@ -1,10 +1,11 @@
 /* Game Class Starter File
- * Last Edit: 12/13/2022
+ * Last Edit: 5/16/23
  * Authors: _____________________
  */
 
 //GAME VARIABLES
 Grid grid = new Grid(6,8);
+//HexGrid hGrid = new HexGrid(3);
 PImage bg;
 PImage player1;
 PImage endScreen;
@@ -12,6 +13,8 @@ String titleText = "HorseChess";
 String extraText = "Who's Turn?";
 AnimatedSprite exampleSprite;
 boolean doAnimation;
+
+
 
 
 //Required Processing method that gets run once

@@ -2,7 +2,7 @@
  * Outline and OutlineColor added
  */ 
 
- import java.awt.Color;
+import java.awt.Color;
 
 public class Cell {
 

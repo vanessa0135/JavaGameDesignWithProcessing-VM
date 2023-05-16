@@ -1,3 +1,4 @@
+//Test file for some basic processing commands
 public void setup(){
     size(800,600);
 }
