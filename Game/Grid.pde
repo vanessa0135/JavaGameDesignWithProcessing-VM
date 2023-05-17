@@ -15,7 +15,7 @@ public class Grid{
     
     for(int r=0; r<rows; r++){
       for(int c=0; c<cols; c++){
-         board[r][c] = new GridTile();
+        board[r][c] = new GridTile(new GridLocation(r,c));
       }
     }
   }
@@ -67,25 +67,26 @@ public class Grid{
 
   //Accessor method that provide the x-pixel value given a GridLocation loc
   public int getX(GridLocation loc){
-    
     int widthOfOneTile = pixelWidth/this.cols;
- 
-    //calculate the center of the grid GridLocation
-    int pixelX = (widthOfOneTile/2) + (widthOfOneTile * loc.getC()); 
-    
+    //calculate the left of the grid GridLocation
+    int pixelX = (widthOfOneTile * loc.getC()); 
     return pixelX;
-  } 
+  }
+  public int getX(int row, int col){
+    return getX(new GridLocation(row, col));
+  }
   
   //Accessor method that provide the y-pixel value given a GridLocation loc
   public int getY(GridLocation loc){
-    
     int heightOfOneTile = pixelHeight/this.rows;
- 
-    //calculate the center of the grid GridLocation
-    int pixelY = (heightOfOneTile/2) + (heightOfOneTile * loc.getR()); 
-    
+    //calculate the top of the grid GridLocation
+    int pixelY = (heightOfOneTile * loc.getR()); 
     return pixelY;
-  } 
+  }
+  public int getY(int row, int col){
+    return getY(new GridLocation(row,col));
+  }
+
   
   //Accessor method that returns the number of rows in the Grid
   public int getRows(){
@@ -106,5 +107,23 @@ public class Grid{
   public GridTile getTile(int r, int c){
     return board[r][c];
   }
+
+  //Method that sets the image at a particular tile in the grid & displays it
+  public void setTileImage(GridLocation loc, PImage pi){
+    GridTile tile = getTile(loc);
+    tile.setImage(pi);
+    image(pi,getX(loc),getY(loc));
+    //System.out.println("Setting Tile Image: " + getX(loc) + "," + getY(loc));
+  }
+
+  //Method that returns the PImage associated with a particular Tile
+  public PImage getTileImage(GridLocation loc){
+    GridTile tile = getTile(loc);
+    return tile.getImage();
+  }
+
+
+  
+
   
 }

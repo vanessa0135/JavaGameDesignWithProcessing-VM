@@ -8,13 +8,14 @@ Grid grid = new Grid(6,8);
 //HexGrid hGrid = new HexGrid(3);
 PImage bg;
 PImage player1;
+PImage player2;
 PImage endScreen;
 String titleText = "HorseChess";
 String extraText = "Who's Turn?";
 AnimatedSprite exampleSprite;
 boolean doAnimation;
 
-
+int userRow = 3;
 
 
 //Required Processing method that gets run once
@@ -31,10 +32,10 @@ void setup() {
   player1 = loadImage("images/x_wood.png");
   player1.resize(100,100);
   endScreen = loadImage("images/youwin.png");
+
   
   //Animation & Sprite setup
   exampleAnimationSetup();
-
 
   println("Game started...");
 
@@ -46,17 +47,15 @@ void setup() {
 void draw() {
 
   updateTitleBar();
-  
   updateScreen();
-
   populateSprites();
   moveSprites();
-
-  checkExampleAnimation();
   
   if(isGameOver()){
     endGame();
   }
+
+  checkExampleAnimation();
 
 }
 
@@ -79,11 +78,25 @@ void mouseClicked(){
 void keyPressed(){
 
   //check what key was pressed
-  System.out.println("Key pressed: " + key); //keyCode gives you an integer for the key
+  System.out.println("Key pressed: " + keyCode); //keyCode gives you an integer for the key
 
   //What to do when a key is pressed
-
   
+  //set "w" key to move the player1 up
+  if(keyCode == 87){
+    //check case where out of bounds
+    
+    //change the field for userRow
+    userRow--;
+
+    //shift the user picture up in the array
+    GridLocation loc = new GridLocation(userRow, 0);
+    grid.setTileImage(loc, player2);
+
+    //eliminate the picture from the old location
+
+  }
+
 
 }
 
@@ -95,13 +108,11 @@ void keyPressed(){
 public void updateTitleBar(){
 
   if(!isGameOver()) {
-
     //set the title each loop
     surface.setTitle(titleText + "    " + extraText);
 
     //adjust the extra text as desired
-    
-
+  
   }
 
 }
@@ -111,9 +122,12 @@ public void updateScreen(){
 
   //update the background
   background(bg);
+
+  //Display the Player1 image
+  GridLocation userLoc = new GridLocation(userRow,0);
+  grid.setTileImage(userLoc, player2);
   
   //update other screen elements
-  image(player1,100,100); //draws the player1 image at coordinates 100,100
 
 
 }

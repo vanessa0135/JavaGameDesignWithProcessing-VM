@@ -32,11 +32,14 @@ Grid grid = new Grid(6,8);
 //HexGrid hGrid = new HexGrid(3);
 PImage bg;
 PImage player1;
+PImage player2;
 PImage endScreen;
 String titleText = "HorseChess";
 String extraText = "Who's Turn?";
 AnimatedSprite exampleSprite;
 boolean doAnimation;
+
+int userRow = 3;
 
 
 
@@ -55,10 +58,12 @@ boolean doAnimation;
   player1 = loadImage("images/x_wood.png");
   player1.resize(100,100);
   endScreen = loadImage("images/youwin.png");
+
+  player2 = loadImage("images/o_gold.png");
+  player2.resize(100,100);
   
   //Animation & Sprite setup
   exampleAnimationSetup();
-
 
   println("Game started...");
 
@@ -70,17 +75,15 @@ boolean doAnimation;
  public void draw() {
 
   updateTitleBar();
-  
   updateScreen();
-
   populateSprites();
   moveSprites();
-
-  checkExampleAnimation();
   
   if(isGameOver()){
     endGame();
   }
+
+  checkExampleAnimation();
 
 }
 
@@ -103,11 +106,26 @@ boolean doAnimation;
  public void keyPressed(){
 
   //check what key was pressed
-  System.out.println("Key pressed: " + key); //keyCode gives you an integer for the key
+  System.out.println("Key pressed: " + keyCode); //keyCode gives you an integer for the key
 
   //What to do when a key is pressed
-
   
+  //set "w" key to move the plane up
+  if(keyCode == 87){
+    //check case where out of bounds
+    
+    //change the field for userrow
+    userRow--;
+
+    //shift the user picture up in the array
+    GridLocation loc = new GridLocation(userRow, 0);
+    grid.setTileImage(loc, player2);
+
+    // Location oldLoc = new Location(userRow+1, 0);
+    // grid.getTile(oldLoc)setImage(null);
+
+  }
+
 
 }
 
@@ -119,13 +137,11 @@ boolean doAnimation;
 public void updateTitleBar(){
 
   if(!isGameOver()) {
-
     //set the title each loop
     surface.setTitle(titleText + "    " + extraText);
 
     //adjust the extra text as desired
-    
-
+  
   }
 
 }
@@ -135,9 +151,22 @@ public void updateScreen(){
 
   //update the background
   background(bg);
+
+  //Set the Player1 image
+  GridLocation userLoc = new GridLocation(userRow,0);
+  grid.setTileImage(userLoc, player2);
   
   //update other screen elements
-  image(player1,100,100); //draws the player1 image at coordinates 100,100
+  // for(int r=0; r<grid.getRows(); r++){
+  //   for(int c=0; c<grid.getCols(); c++){
+  //     GridTile tile = grid.getTile(r,c);
+  //     System.out.print(r+","+c+"\t"+tile.getImage()+"\t");
+  //     // if(tile.getImage() != null){
+  //     //   image(tile.getImage(),grid.getX(r,c),grid.getY(r,c));
+  //     // }
+  //   }
+  //   System.out.println();
+  // }
 
 
 }
@@ -326,7 +355,7 @@ public class Grid{
     
     for(int r=0; r<rows; r++){
       for(int c=0; c<cols; c++){
-         board[r][c] = new GridTile();
+        board[r][c] = new GridTile(new GridLocation(r,c));
       }
     }
   }
@@ -378,25 +407,26 @@ public class Grid{
 
   //Accessor method that provide the x-pixel value given a GridLocation loc
   public int getX(GridLocation loc){
-    
     int widthOfOneTile = pixelWidth/this.cols;
- 
-    //calculate the center of the grid GridLocation
-    int pixelX = (widthOfOneTile/2) + (widthOfOneTile * loc.getC()); 
-    
+    //calculate the left of the grid GridLocation
+    int pixelX = (widthOfOneTile * loc.getC()); 
     return pixelX;
-  } 
+  }
+  public int getX(int row, int col){
+    return getX(new GridLocation(row, col));
+  }
   
   //Accessor method that provide the y-pixel value given a GridLocation loc
   public int getY(GridLocation loc){
-    
     int heightOfOneTile = pixelHeight/this.rows;
- 
-    //calculate the center of the grid GridLocation
-    int pixelY = (heightOfOneTile/2) + (heightOfOneTile * loc.getR()); 
-    
+    //calculate the top of the grid GridLocation
+    int pixelY = (heightOfOneTile * loc.getR()); 
     return pixelY;
-  } 
+  }
+  public int getY(int row, int col){
+    return getY(new GridLocation(row,col));
+  }
+
   
   //Accessor method that returns the number of rows in the Grid
   public int getRows(){
@@ -417,6 +447,24 @@ public class Grid{
   public GridTile getTile(int r, int c){
     return board[r][c];
   }
+
+  //Method that sets the image at a particular tile in the grid & displays it
+  public void setTileImage(GridLocation loc, PImage pi){
+    GridTile tile = getTile(loc);
+    tile.setImage(pi);
+    image(pi,getX(loc),getY(loc));
+    //System.out.println("Setting Tile Image: " + getX(loc) + "," + getY(loc));
+  }
+
+  //Method that returns the PImage associated with a particular Tile
+  public PImage getTileImage(GridLocation loc){
+    GridTile tile = getTile(loc);
+    return tile.getImage();
+  }
+
+
+  
+
   
 }
 public class GridLocation{
