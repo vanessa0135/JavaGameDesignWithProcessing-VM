@@ -103,6 +103,16 @@ public class Grid{
     return cols;
   }
 
+  //Accessor method that returns the width of 1 Tile in the Grid
+  public int getTileWidthPixels(){
+    return pixelWidth/this.cols;
+  }
+  //Accessor method that returns the height of 1 Tile in the Grid
+  public int getTileHeightPixels(){
+    return pixelHeight/this.cols;
+  }
+
+
   //Returns the GridTile object stored at a specified GridLocation
   public GridTile getTile(GridLocation loc){
     return board[loc.getR()][loc.getC()];
