@@ -4,6 +4,7 @@ import processing.data.*;
 import processing.event.*;
 import processing.opengl.*;
 
+import processing.sound.*;
 import java.awt.Color;
 import java.awt.Polygon;
 import java.awt.Point;
@@ -23,9 +24,11 @@ import java.io.IOException;
 public class Game extends PApplet {
 
 /* Game Class Starter File
- * Last Edit: 5/16/23
  * Authors: _____________________
+ * Last Edit: 5/17/23
  */
+
+
 
 //GAME VARIABLES
 Grid grid = new Grid(6,8);
@@ -38,10 +41,9 @@ String titleText = "HorseChess";
 String extraText = "Who's Turn?";
 AnimatedSprite exampleSprite;
 boolean doAnimation;
+SoundFile song;
 
 int userRow = 3;
-
-
 
 
 //Required Processing method that gets run once
@@ -59,8 +61,10 @@ int userRow = 3;
   player1.resize(100,100);
   endScreen = loadImage("images/youwin.png");
 
-  player2 = loadImage("images/o_gold.png");
-  player2.resize(100,100);
+  // Load a soundfile from the /data folder of the sketch and play it back
+  song = new SoundFile(this, "sounds/Lenny_Kravitz_Fly_Away.mp3");
+  song.play();
+
   
   //Animation & Sprite setup
   exampleAnimationSetup();
@@ -108,21 +112,20 @@ int userRow = 3;
   //check what key was pressed
   System.out.println("Key pressed: " + keyCode); //keyCode gives you an integer for the key
 
-  //What to do when a key is pressed
+  //What to do when a key is pressed?
   
-  //set "w" key to move the plane up
+  //set "w" key to move the player1 up
   if(keyCode == 87){
     //check case where out of bounds
     
-    //change the field for userrow
+    //change the field for userRow
     userRow--;
 
     //shift the user picture up in the array
     GridLocation loc = new GridLocation(userRow, 0);
-    grid.setTileImage(loc, player2);
+    grid.setTileImage(loc, player1);
 
-    // Location oldLoc = new Location(userRow+1, 0);
-    // grid.getTile(oldLoc)setImage(null);
+    //eliminate the picture from the old location
 
   }
 
@@ -152,21 +155,11 @@ public void updateScreen(){
   //update the background
   background(bg);
 
-  //Set the Player1 image
+  //Display the Player1 image
   GridLocation userLoc = new GridLocation(userRow,0);
-  grid.setTileImage(userLoc, player2);
+  grid.setTileImage(userLoc, player1);
   
   //update other screen elements
-  // for(int r=0; r<grid.getRows(); r++){
-  //   for(int c=0; c<grid.getCols(); c++){
-  //     GridTile tile = grid.getTile(r,c);
-  //     System.out.print(r+","+c+"\t"+tile.getImage()+"\t");
-  //     // if(tile.getImage() != null){
-  //     //   image(tile.getImage(),grid.getX(r,c),grid.getY(r,c));
-  //     // }
-  //   }
-  //   System.out.println();
-  // }
 
 
 }
@@ -216,19 +209,23 @@ public void checkExampleAnimation(){
     exampleSprite.animateVertical(1.0f, 0.1f, true);
   }
 }
-// Revised from Daniel Shiffman's p5js Animated Sprite tutorial
-// Expects .json spritesheet from TexturePack software
+/* Animated Sprite class - useful to have Sprites move around
+ * Designed to be used with Spritesheets & JSON files from TexturePack software
+ * Revised from Daniel Shiffman's p5js Animated Sprite tutorial
+ * Author: Joel Bianchi
+ * Last Edit: 5/17/2023
 
-// https://editor.p5js.org/codingtrain/sketches/vhnFx1mml
-// http://youtube.com/thecodingtrain
-// https://thecodingtrain.com/CodingChallenges/111-animated-sprite.html
+ * https://editor.p5js.org/codingtrain/sketches/vhnFx1mml
+ * http://youtube.com/thecodingtrain
+ * https://thecodingtrain.com/CodingChallenges/111-animated-sprite.html
 
-// Example Horse Spritesheet from
-// https://opengameart.org/content/2d-platformer-art-assets-from-horse-of-spring
+ * Example Horse Spritesheet from
+ * https://opengameart.org/content/2d-platformer-art-assets-from-horse-of-spring
 
-// Example Animated Sprite
-// https://youtu.be/3noMeuufLZY
-
+ * Example Animated Sprite
+ * https://youtu.be/3noMeuufLZY
+ */
+ 
 public class AnimatedSprite extends Sprite{
   
     private ArrayList<PImage> animation;
@@ -273,7 +270,6 @@ public class AnimatedSprite extends Sprite{
     }
   }
 
-
   //Overriden method: Displays the correct frame of the Sprite image on the screen
   public void show() {
     int index = (int) Math.floor(Math.abs(this.index)) % this.len;
@@ -312,9 +308,7 @@ public class AnimatedSprite extends Sprite{
     if(wraparound){
       wraparoundVertical();
     }
-
   }
-
 
   //wraparound sprite if goes off the right-left
   private void wraparoundHorizontal(){
@@ -332,13 +326,16 @@ public class AnimatedSprite extends Sprite{
     } else if ( super.getY() < -height ){
       super.setY( height );
     }
-
   }
 
 
-
 }
-
+/* Grid Class - Used for rectangular-tiled games
+ * A 2D array of GridTiles which can be marked
+ * Author: Joel Bianchi
+ * Last Edit: 5/17/2023
+ * Edited to integrate with HexTile
+ */
 
 public class Grid{
   
@@ -462,11 +459,13 @@ public class Grid{
     return tile.getImage();
   }
 
-
-  
-
   
 }
+/* GridLocation class - helper class to store coordinates more easily
+ * Author: Joel Bianchi
+ * Last Edit: 5/17/2023
+ */
+
 public class GridLocation{
  
   int row;
@@ -498,9 +497,13 @@ public class GridLocation{
   }
  
 }
-//Author: Joel Bianchi
-//Last Revision: 5/16/2023
-//Edited to integrate with HexTile from Naomi G & Ezz M
+/* GridTile class - Designed to be used within the Grid class
+ * GridTiles have distinguishable marks that will be printed out to the console for easy visualization of a 2D array
+ * GridTiles can indicate if they have been "captured", colored, or are displaying an image
+ * Authors: Joel Bianchi, Naomi Gaylor, Ezzeldin Moussa
+ * Last Edit: 5/17/2023
+ * Edited to be superclass of HexTile
+ */
 
 
 
@@ -630,12 +633,14 @@ public class GridTile{
 
 
 }
-// HexGrid Processing Class
-// Modified from CSRessel's Catan Game & JABianchi's Grid class:
-// Refined by Naomi Cordero & Ezzeldin Moussa, June 2022
-// https://github.com/CSRessel/catan/blob/master/src/gui/CatanBoard.java
-// Latest edit: 5/16/23
-// Adapted for Processing
+/* HexGrid Class - useful for tile-based games with more flavor!
+ * Inspired from CSRessel's Catan Game & Emmanuel Suriel's Grid class
+ * https://github.com/CSRessel/catan/blob/master/src/gui/CatanBoard.java
+ * Adapted for Processing
+ * Authors: Joel Bianchi, Naomi Gaylor, Ezzeldin Moussa
+ * Last Edit: 5/16/2023
+ * NOT FULLY FUNCTIONAL YET
+ */
 
 
 
@@ -710,9 +715,7 @@ public class HexGrid {
 
 			//Generate unclaimedTiles ArrayList
 			unclaimedLocations.add(loc);
-
 		}
-
     }
 
 	public boolean isValidLocation(HexLocation testLoc){
@@ -1300,8 +1303,11 @@ public class HexGrid {
 	}
 
 }  
-// Author: Joel Bianchi
-// Last Edit: 5/16/2023
+/* HexLocation Class
+ * HexLocations use x & y coordinate instead of row & column designations
+ * Author: Joel Bianchi
+ * Last Edit: 5/16/2023
+ */
 
 public class HexLocation extends GridLocation{
  
@@ -1332,9 +1338,11 @@ public class HexLocation extends GridLocation{
 
 
 }
-// Based off code from Naomi Gaylor & Ezzeldin Moussa, June 2022
-// Last edited: 5/16/2023
-// Edited to be a subclass of GridTile pde file
+/* HexTile Class
+ * Based off code from Naomi Gaylor & Ezzeldin Moussa, June 2022
+ * Last edit: 5/16/2023
+ * Edited to be a subclass of GridTile pde file
+ */
 
 
 
@@ -1390,6 +1398,14 @@ public class HexTile extends GridTile{
 
     
 }  
+/* Platform class
+ * Stub constructors provided
+ * Can be used with the following tutorials:
+ * https://longbaonguyen.github.io/courses/platformer/platformer.html
+ * Authors: __________________
+ * Last Edit: 5/17/2023
+ */
+
 public class Platform {//extends Sprite {
 
 	//Platform defined by it's center-x and top-Y positions
@@ -1409,7 +1425,11 @@ public class Platform {//extends Sprite {
 	}
 
 }
-// Inspired by Daniel Shiffman's p5js Animated Sprite tutorial
+/* Sprite class - to create objects that move around with their own properties
+ * Inspired by Daniel Shiffman's p5js Animated Sprite tutorial
+ * Author: Joel Bianchi
+ * Last Edit: 12/20/2022
+ */
 
 public class Sprite {
   

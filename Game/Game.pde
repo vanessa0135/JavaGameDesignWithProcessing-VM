@@ -3,6 +3,8 @@
  * Last Edit: 5/17/23
  */
 
+//import processing.sound.*;
+
 //GAME VARIABLES
 Grid grid = new Grid(6,8);
 //HexGrid hGrid = new HexGrid(3);
@@ -14,6 +16,7 @@ String titleText = "HorseChess";
 String extraText = "Who's Turn?";
 AnimatedSprite exampleSprite;
 boolean doAnimation;
+//SoundFile song;
 
 int userRow = 3;
 
@@ -32,6 +35,10 @@ void setup() {
   player1 = loadImage("images/x_wood.png");
   player1.resize(100,100);
   endScreen = loadImage("images/youwin.png");
+
+  // Load a soundfile from the /data folder of the sketch and play it back
+  // song = new SoundFile(this, "sounds/Lenny_Kravitz_Fly_Away.mp3");
+  // song.play();
 
   
   //Animation & Sprite setup
@@ -125,7 +132,7 @@ public void updateScreen(){
 
   //Display the Player1 image
   GridLocation userLoc = new GridLocation(userRow,0);
-  grid.setTileImage(userLoc, player2);
+  grid.setTileImage(userLoc, player1);
   
   //update other screen elements
 
