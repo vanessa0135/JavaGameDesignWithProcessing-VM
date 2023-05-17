@@ -91,7 +91,7 @@ void keyPressed(){
 
     //shift the user picture up in the array
     GridLocation loc = new GridLocation(userRow, 0);
-    grid.setTileImage(loc, player2);
+    grid.setTileImage(loc, player1);
 
     //eliminate the picture from the old location
 
