@@ -1,5 +1,5 @@
-Author: Joel Bianchi
-Last Edit: 5/16/2023
+// Author: Joel Bianchi
+// Last Edit: 5/16/2023
 
 public class HexLocation extends GridLocation{
  
