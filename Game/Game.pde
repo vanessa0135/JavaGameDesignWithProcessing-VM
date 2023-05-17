@@ -18,7 +18,7 @@ AnimatedSprite exampleSprite;
 boolean doAnimation;
 //SoundFile song;
 
-int userRow = 3;
+int player1Row = 3;
 
 
 //Required Processing method that gets run once
@@ -31,9 +31,11 @@ void setup() {
   surface.setTitle(titleText);
 
   //Load images used
-  bg = loadImage("images/chess.jpg");
+  //bg = loadImage("images/chess.jpg");
+  bg = loadImage("images/x_wood.png");
+  bg.resize(800,600);
   player1 = loadImage("images/x_wood.png");
-  player1.resize(100,100);
+  player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
   endScreen = loadImage("images/youwin.png");
 
   // Load a soundfile from the /data folder of the sketch and play it back
@@ -93,11 +95,11 @@ void keyPressed(){
   if(keyCode == 87){
     //check case where out of bounds
     
-    //change the field for userRow
-    userRow--;
+    //change the field for player1Row
+    player1Row--;
 
-    //shift the user picture up in the array
-    GridLocation loc = new GridLocation(userRow, 0);
+    //shift the player1 picture up in the array
+    GridLocation loc = new GridLocation(player1Row, 0);
     grid.setTileImage(loc, player1);
 
     //eliminate the picture from the old location
@@ -131,8 +133,8 @@ public void updateScreen(){
   background(bg);
 
   //Display the Player1 image
-  GridLocation userLoc = new GridLocation(userRow,0);
-  grid.setTileImage(userLoc, player1);
+  GridLocation player1Loc = new GridLocation(player1Row,0);
+  grid.setTileImage(player1Loc, player1);
   
   //update other screen elements
 
