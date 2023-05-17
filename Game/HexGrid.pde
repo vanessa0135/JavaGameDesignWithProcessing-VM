@@ -1,9 +1,11 @@
-// HexGrid Processing Class
-// Modified from CSRessel's Catan Game & JABianchi's Grid class:
-// Refined by Naomi Cordero & Ezzeldin Moussa, June 2022
-// https://github.com/CSRessel/catan/blob/master/src/gui/CatanBoard.java
-// Latest edit: 5/16/23
-// Adapted for Processing
+/* HexGrid Class - useful for tile-based games with more flavor!
+ * Inspired from CSRessel's Catan Game & Emmanuel Suriel's Grid class
+ * https://github.com/CSRessel/catan/blob/master/src/gui/CatanBoard.java
+ * Adapted for Processing
+ * Authors: Joel Bianchi, Naomi Gaylor, Ezzeldin Moussa
+ * Last Edit: 5/16/2023
+ * NOT FULLY FUNCTIONAL YET
+ */
 
 import java.awt.Polygon;
 import java.awt.Point;
@@ -78,9 +80,7 @@ public class HexGrid {
 
 			//Generate unclaimedTiles ArrayList
 			unclaimedLocations.add(loc);
-
 		}
-
     }
 
 	public boolean isValidLocation(HexLocation testLoc){

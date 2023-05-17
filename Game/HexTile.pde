@@ -1,6 +1,8 @@
-// Based off code from Naomi Gaylor & Ezzeldin Moussa, June 2022
-// Last edited: 5/16/2023
-// Edited to be a subclass of GridTile pde file
+/* HexTile Class
+ * Based off code from Naomi Gaylor & Ezzeldin Moussa, June 2022
+ * Last edit: 5/16/2023
+ * Edited to be a subclass of GridTile pde file
+ */
 
 import java.awt.Polygon;
 import java.awt.Point;

@@ -1,3 +1,8 @@
+/* GridLocation class - helper class to store coordinates more easily
+ * Author: Joel Bianchi
+ * Last Edit: 5/17/2023
+ */
+
 public class GridLocation{
  
   int row;

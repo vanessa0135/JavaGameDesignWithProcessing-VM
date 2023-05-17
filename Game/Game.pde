@@ -1,6 +1,6 @@
 /* Game Class Starter File
- * Last Edit: 5/16/23
  * Authors: _____________________
+ * Last Edit: 5/17/23
  */
 
 //GAME VARIABLES
@@ -80,7 +80,7 @@ void keyPressed(){
   //check what key was pressed
   System.out.println("Key pressed: " + keyCode); //keyCode gives you an integer for the key
 
-  //What to do when a key is pressed
+  //What to do when a key is pressed?
   
   //set "w" key to move the player1 up
   if(keyCode == 87){

@@ -1,4 +1,9 @@
-
+/* Grid Class - Used for rectangular-tiled games
+ * A 2D array of GridTiles which can be marked
+ * Author: Joel Bianchi
+ * Last Edit: 5/17/2023
+ * Edited to integrate with HexTile
+ */
 
 public class Grid{
   
@@ -121,9 +126,6 @@ public class Grid{
     GridTile tile = getTile(loc);
     return tile.getImage();
   }
-
-
-  
 
   
 }

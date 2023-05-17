@@ -1,16 +1,20 @@
-// Revised from Daniel Shiffman's p5js Animated Sprite tutorial
-// Expects .json spritesheet from TexturePack software
+/* Animated Sprite class - useful to have Sprites move around
+ * Designed to be used with Spritesheets & JSON files from TexturePack software
+ * Revised from Daniel Shiffman's p5js Animated Sprite tutorial
+ * Author: Joel Bianchi
+ * Last Edit: 5/17/2023
 
-// https://editor.p5js.org/codingtrain/sketches/vhnFx1mml
-// http://youtube.com/thecodingtrain
-// https://thecodingtrain.com/CodingChallenges/111-animated-sprite.html
+ * https://editor.p5js.org/codingtrain/sketches/vhnFx1mml
+ * http://youtube.com/thecodingtrain
+ * https://thecodingtrain.com/CodingChallenges/111-animated-sprite.html
 
-// Example Horse Spritesheet from
-// https://opengameart.org/content/2d-platformer-art-assets-from-horse-of-spring
+ * Example Horse Spritesheet from
+ * https://opengameart.org/content/2d-platformer-art-assets-from-horse-of-spring
 
-// Example Animated Sprite
-// https://youtu.be/3noMeuufLZY
-
+ * Example Animated Sprite
+ * https://youtu.be/3noMeuufLZY
+ */
+ 
 public class AnimatedSprite extends Sprite{
   
     private ArrayList<PImage> animation;
@@ -55,7 +59,6 @@ public class AnimatedSprite extends Sprite{
     }
   }
 
-
   //Overriden method: Displays the correct frame of the Sprite image on the screen
   public void show() {
     int index = (int) Math.floor(Math.abs(this.index)) % this.len;
@@ -94,9 +97,7 @@ public class AnimatedSprite extends Sprite{
     if(wraparound){
       wraparoundVertical();
     }
-
   }
-
 
   //wraparound sprite if goes off the right-left
   private void wraparoundHorizontal(){
@@ -114,9 +115,7 @@ public class AnimatedSprite extends Sprite{
     } else if ( super.getY() < -height ){
       super.setY( height );
     }
-
   }
-
 
 
 }

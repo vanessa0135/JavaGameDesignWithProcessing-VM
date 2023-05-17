@@ -1,6 +1,10 @@
-//Author: Joel Bianchi
-//Last Revision: 5/16/2023
-//Edited to integrate with HexTile from Naomi G & Ezz M
+/* GridTile class - Designed to be used within the Grid class
+ * GridTiles have distinguishable marks that will be printed out to the console for easy visualization of a 2D array
+ * GridTiles can indicate if they have been "captured", colored, or are displaying an image
+ * Authors: Joel Bianchi, Naomi Gaylor, Ezzeldin Moussa
+ * Last Edit: 5/17/2023
+ * Edited to be superclass of HexTile
+ */
 
 import java.awt.Color;
 
