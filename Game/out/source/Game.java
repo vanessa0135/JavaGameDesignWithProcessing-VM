@@ -4,7 +4,6 @@ import processing.data.*;
 import processing.event.*;
 import processing.opengl.*;
 
-import processing.sound.*;
 import java.awt.Color;
 import java.awt.Polygon;
 import java.awt.Point;
@@ -28,7 +27,7 @@ public class Game extends PApplet {
  * Last Edit: 5/17/23
  */
 
-
+//import processing.sound.*;
 
 //GAME VARIABLES
 Grid grid = new Grid(6,8);
@@ -41,7 +40,7 @@ String titleText = "HorseChess";
 String extraText = "Who's Turn?";
 AnimatedSprite exampleSprite;
 boolean doAnimation;
-SoundFile song;
+//SoundFile song;
 
 int userRow = 3;
 
@@ -56,14 +55,16 @@ int userRow = 3;
   surface.setTitle(titleText);
 
   //Load images used
-  bg = loadImage("images/chess.jpg");
+  //bg = loadImage("images/chess.jpg");
+  bg = loadImage("images/x_wood.png");
+  bg.resize(800,600);
   player1 = loadImage("images/x_wood.png");
   player1.resize(100,100);
   endScreen = loadImage("images/youwin.png");
 
   // Load a soundfile from the /data folder of the sketch and play it back
-  song = new SoundFile(this, "sounds/Lenny_Kravitz_Fly_Away.mp3");
-  song.play();
+  // song = new SoundFile(this, "sounds/Lenny_Kravitz_Fly_Away.mp3");
+  // song.play();
 
   
   //Animation & Sprite setup

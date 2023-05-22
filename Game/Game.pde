@@ -68,21 +68,6 @@ void draw() {
 
 }
 
-
-//Known Processing method that automatically will run when a mouse click triggers it
-void mouseClicked(){
-  
-  //check if click was successful
-  System.out.println("Mouse was clicked at (" + mouseX + "," + mouseY + ")");
-  System.out.println("Grid location: " + grid.getGridLocation());
-
-  //what to do if clicked?
-  doAnimation = !doAnimation;
-  System.out.println("doAnimation: " + doAnimation);
-  grid.setMark("X",grid.getGridLocation());
-  
-}
-
 //Known Processing method that automatically will run whenever a key is pressed
 void keyPressed(){
 
@@ -98,14 +83,30 @@ void keyPressed(){
     //change the field for player1Row
     player1Row--;
 
-    //shift the player1 picture up in the array
+    //shift the player1 picture up in the 2D array
     GridLocation loc = new GridLocation(player1Row, 0);
     grid.setTileImage(loc, player1);
 
     //eliminate the picture from the old location
 
   }
+}
+  //Known Processing method that automatically will run when a mouse click triggers it
+  void mouseClicked(){
+  
+    //check if click was successful
+    System.out.println("Mouse was clicked at (" + mouseX + "," + mouseY + ")");
+    System.out.println("Grid location: " + grid.getGridLocation());
 
+    //what to do if clicked? (Make player1 disappear?)
+
+
+    //Toggle the animation on & off
+    doAnimation = !doAnimation;
+    System.out.println("doAnimation: " + doAnimation);
+    grid.setMark("X",grid.getGridLocation());
+    
+  }
 
 }
 
