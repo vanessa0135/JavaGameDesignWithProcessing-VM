@@ -1,16 +1,17 @@
 /* Game Class Starter File
  * Authors: _____________________
- * Last Edit: 5/17/23
+ * Last Edit: 5/22/23
  */
 
 //import processing.sound.*;
 
 //GAME VARIABLES
+private int msElapsed = 0;
 Grid grid = new Grid(6,8);
 //HexGrid hGrid = new HexGrid(3);
 PImage bg;
 PImage player1;
-PImage player2;
+PImage enemy;
 PImage endScreen;
 String titleText = "HorseChess";
 String extraText = "Who's Turn?";
@@ -31,8 +32,7 @@ void setup() {
   surface.setTitle(titleText);
 
   //Load images used
-  //bg = loadImage("images/chess.jpg");
-  bg = loadImage("images/x_wood.png");
+  bg = loadImage("images/chess.jpg");
   bg.resize(800,600);
   player1 = loadImage("images/x_wood.png");
   player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
@@ -41,14 +41,15 @@ void setup() {
   // Load a soundfile from the /data folder of the sketch and play it back
   // song = new SoundFile(this, "sounds/Lenny_Kravitz_Fly_Away.mp3");
   // song.play();
-
   
   //Animation & Sprite setup
   exampleAnimationSetup();
 
-  println("Game started...");
-
+  imageMode(CORNER);    //Set Images to read coordinates at corners
   //fullScreen();   //only use if not using a specfic bg image
+  
+  println("Game started...");
+  
 }
 
 //Required Processing method that automatically loops
@@ -56,15 +57,22 @@ void setup() {
 void draw() {
 
   updateTitleBar();
+
+  if (msElapsed % 300 == 0) {
+    populateSprites();
+    moveSprites();
+  }
+
   updateScreen();
-  populateSprites();
-  moveSprites();
   
   if(isGameOver()){
     endGame();
   }
 
   checkExampleAnimation();
+  
+  msElapsed +=100;
+  grid.pause(100);
 
 }
 
@@ -76,38 +84,40 @@ void keyPressed(){
 
   //What to do when a key is pressed?
   
-  //set "w" key to move the player1 up
+  //set [W] key to move the player1 up & avoid Out-of-Bounds errors
   if(keyCode == 87){
-    //check case where out of bounds
+   
+    //Store old GridLocation
+    GridLocation oldLoc = new GridLocation(player1Row, 0);
     
+    //Erase image from previous location
+    
+
     //change the field for player1Row
     player1Row--;
-
-    //shift the player1 picture up in the 2D array
-    GridLocation loc = new GridLocation(player1Row, 0);
-    grid.setTileImage(loc, player1);
-
-    //eliminate the picture from the old location
-
   }
+
+
+
+
 }
-  //Known Processing method that automatically will run when a mouse click triggers it
-  void mouseClicked(){
-  
-    //check if click was successful
-    System.out.println("Mouse was clicked at (" + mouseX + "," + mouseY + ")");
-    System.out.println("Grid location: " + grid.getGridLocation());
 
-    //what to do if clicked? (Make player1 disappear?)
+//Known Processing method that automatically will run when a mouse click triggers it
+void mouseClicked(){
+
+  //check if click was successful
+  System.out.println("Mouse was clicked at (" + mouseX + "," + mouseY + ")");
+  System.out.println("Grid location: " + grid.getGridLocation());
+
+  //what to do if clicked? (Make player1 jump back?)
 
 
-    //Toggle the animation on & off
-    doAnimation = !doAnimation;
-    System.out.println("doAnimation: " + doAnimation);
-    grid.setMark("X",grid.getGridLocation());
+
+  //Toggle the animation on & off
+  doAnimation = !doAnimation;
+  System.out.println("doAnimation: " + doAnimation);
+  grid.setMark("X",grid.getGridLocation());
     
-  }
-
 }
 
 
@@ -130,26 +140,69 @@ public void updateTitleBar(){
 //method to update what is drawn on the screen each frame
 public void updateScreen(){
 
-  //update the background
+  //Update the Background
   background(bg);
 
   //Display the Player1 image
   GridLocation player1Loc = new GridLocation(player1Row,0);
   grid.setTileImage(player1Loc, player1);
   
-  //update other screen elements
+  //Loop through all the Tiles and display its images/sprites
+  
+
+      //Store temporary GridLocation
+      
+      //Check if the tile has an image/sprite 
+      //--> Display the tile's image/sprite
+
+
+
+  //Update other screen elements
 
 
 }
 
 //Method to populate enemies or other sprites on the screen
 public void populateSprites(){
+  
+  //What is the index for the last column?
+  
+
+  //Loop through all the rows in the last column
+  
+    //Generate a random number
+    
+
+    //10% of the time, decide to add an enemy image to a Tile
+    
 
 }
 
 //Method to move around the enemies/sprites on the screen
 public void moveSprites(){
 
+//Loop through all of the rows & cols in the grid
+  
+      //Store the 2 tile locations to move
+
+      //Check if the current tile has an image that is not player1      
+
+
+        //Get image/sprite from current location
+
+
+        //CASE 1: Collision with player1
+
+
+        //CASE 2: Move enemy over to new location
+
+        
+        //Erase image/sprite from old location
+        
+        //System.out.println(loc + " " + grid.hasTileImage(loc));
+
+
+      //CASE 3: Enemy leaves screen at first column
 
 }
 
@@ -177,13 +230,13 @@ public void endGame(){
 
 //example method that creates 5 horses along the screen
 public void exampleAnimationSetup(){  
-  int i = 2;
-  exampleSprite = new AnimatedSprite("sprites/horse_run.png", 50.0, i*75.0, "sprites/horse_run.json");
+  int i = 1;
+  exampleSprite = new AnimatedSprite("sprites/horse_run.png", 300.0, i*100.0, "sprites/horse_run.json");
 }
 
 //example method that animates the horse Sprites
 public void checkExampleAnimation(){
   if(doAnimation){
-    exampleSprite.animateVertical(1.0, 0.1, true);
+    exampleSprite.animateHorizontal(5.0, 1.0, true);
   }
 }
