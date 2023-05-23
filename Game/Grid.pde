@@ -185,7 +185,7 @@ public class Grid{
     return tile.hasSprite();
   }
 
-
+  //Method to pause the Game
   public void pause(final int milliseconds) {
     try {
       Thread.sleep(milliseconds);

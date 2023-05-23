@@ -140,23 +140,15 @@ public class GridTile{
     return fillColor;
   }
 
+  // Method that changes the outline color around a tile
   public void setOutlineColor(color oclr){
     this.outlineColor = oclr;
   }
 
+  // Method that gets the outline color around a tile
   public color getOutlineColor(){
     return this.outlineColor;
   }
-
-  public void setCoveredWithPic(boolean isCoveredWithPic) {
-    this.coveredPic = isCoveredWithPic;
-  }
-
-  public boolean isCoveredWithPic() {
-    return this.coveredPic;
-  }
-
-
 
   //method to access the location of the GridTile
   public GridLocation getLocation(){
