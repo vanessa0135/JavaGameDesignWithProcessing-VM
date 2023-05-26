@@ -206,8 +206,9 @@ public void moveSprites(){
 
 }
 
-//Method to handle the collisions between Sprites on the Screen
-public void handleCollisions(){
+
+// Method to check if there is a collision between Sprites on the Screen
+public void checkCollision(GridLocation loc, GridLocation newLoc){
 
 
 }
