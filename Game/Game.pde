@@ -15,9 +15,14 @@ PImage enemy;
 PImage endScreen;
 String titleText = "HorseChess";
 String extraText = "Who's Turn?";
+String player1File = "images/x_wood.png";
+String bgFile = "images/chess.jpg";
+String endFile = "images/youwin.png";
 AnimatedSprite exampleSprite;
 boolean doAnimation;
 //SoundFile song;
+
+int health = 3;
 
 int player1Row = 3;
 
@@ -32,11 +37,11 @@ void setup() {
   surface.setTitle(titleText);
 
   //Load images used
-  bg = loadImage("images/chess.jpg");
+  bg = loadImage(bgFile);
   bg.resize(800,600);
-  player1 = loadImage("images/x_wood.png");
+  player1 = loadImage(player1File);
   player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
-  endScreen = loadImage("images/youwin.png");
+  endScreen = loadImage(endFile);
 
   // Load a soundfile from the /data folder of the sketch and play it back
   // song = new SoundFile(this, "sounds/Lenny_Kravitz_Fly_Away.mp3");
@@ -183,7 +188,9 @@ public void moveSprites(){
 
 //Loop through all of the rows & cols in the grid
   
-      //Store the 2 tile locations to move
+      //Store the current GridLocation
+
+      //Store the next GridLocation
 
       //Check if the current tile has an image that is not player1      
 
@@ -207,9 +214,32 @@ public void moveSprites(){
 }
 
 
-// Method to check if there is a collision between Sprites on the Screen
-public void checkCollision(GridLocation loc, GridLocation newLoc){
+// Method to check if there is a collision between Sprites/Images on the Screen
+public boolean checkCollision(GridLocation loc, GridLocation newLoc){
 
+  //Check what image/sprite is stored in the CURRENT location
+  // PImage image = grid.getTileImage(loc);
+  // AnimatedSprite sprite = grid.getTileSprite(loc);
+  
+  //if empty --> no collision
+
+  //Check what image/sprite is stored in the NEXT location
+  
+  //if empty --> no collision
+  
+
+  //check if an enemy is colliding with player1
+    
+    //Remove the image at that original location using the clearTileImage() or clearTileSprite() method from the Grid class.
+    
+    //Lose 1 Health from player1
+  
+  
+  //check if player1 is colliding with an enemy...
+
+  
+  
+  return false; //by default, there is no collision
 
 }
 
