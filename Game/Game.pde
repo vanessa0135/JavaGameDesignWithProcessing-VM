@@ -254,6 +254,6 @@ public void exampleAnimationSetup(){
 //example method that animates the horse Sprites
 public void checkExampleAnimation(){
   if(doAnimation){
-    exampleSprite.animateHorizontal(5.0, 1.0, true);
+    exampleSprite.animateHorizontal(5.0, 10.0, true);
   }
 }
