@@ -1,6 +1,6 @@
 /* Game Class Starter File
  * Authors: _____________________
- * Last Edit: 5/22/23
+ * Last Edit: 5/31/23
  */
 
 //import processing.sound.*;
@@ -23,7 +23,6 @@ boolean doAnimation;
 //SoundFile song;
 
 int health = 3;
-
 int player1Row = 3;
 
 
@@ -32,7 +31,7 @@ void setup() {
 
   //Match the screen size to the background image size
   size(800, 600);
-
+  
   //Set the title on the title bar
   surface.setTitle(titleText);
 
@@ -42,7 +41,10 @@ void setup() {
   player1 = loadImage(player1File);
   player1.resize(grid.getTileWidthPixels(),grid.getTileHeightPixels());
   endScreen = loadImage(endFile);
-
+  // enemy = loadImage("images/articuno.png");
+  // enemy.resize(100,100);
+  grid.pause(100);
+ 
   // Load a soundfile from the /data folder of the sketch and play it back
   // song = new SoundFile(this, "sounds/Lenny_Kravitz_Fly_Away.mp3");
   // song.play();
@@ -94,7 +96,7 @@ void keyPressed(){
    
     //Store old GridLocation
     GridLocation oldLoc = new GridLocation(player1Row, 0);
-    
+
     //Erase image from previous location
     
 
@@ -103,28 +105,25 @@ void keyPressed(){
   }
 
 
-
-
 }
 
 //Known Processing method that automatically will run when a mouse click triggers it
 void mouseClicked(){
-
+  
   //check if click was successful
   System.out.println("Mouse was clicked at (" + mouseX + "," + mouseY + ")");
   System.out.println("Grid location: " + grid.getGridLocation());
 
   //what to do if clicked? (Make player1 jump back?)
-
+  
 
 
   //Toggle the animation on & off
   doAnimation = !doAnimation;
   System.out.println("doAnimation: " + doAnimation);
   grid.setMark("X",grid.getGridLocation());
-    
+  
 }
-
 
 
 //------------------ CUSTOM  METHODS --------------------//
@@ -139,7 +138,6 @@ public void updateTitleBar(){
     //adjust the extra text as desired
   
   }
-
 }
 
 //method to update what is drawn on the screen each frame
@@ -151,32 +149,24 @@ public void updateScreen(){
   //Display the Player1 image
   GridLocation player1Loc = new GridLocation(player1Row,0);
   grid.setTileImage(player1Loc, player1);
-  
-  //Loop through all the Tiles and display its images/sprites
-  
-
-      //Store temporary GridLocation
-      
-      //Check if the tile has an image/sprite 
-      //--> Display the tile's image/sprite
-
-
-
-  //Update other screen elements
+    
+  //update other screen elements
+  grid.showImages();
+  grid.showSprites();
 
 
 }
 
 //Method to populate enemies or other sprites on the screen
 public void populateSprites(){
-  
+
   //What is the index for the last column?
   
 
   //Loop through all the rows in the last column
-  
+
     //Generate a random number
-    
+
 
     //10% of the time, decide to add an enemy image to a Tile
     
@@ -187,7 +177,7 @@ public void populateSprites(){
 public void moveSprites(){
 
 //Loop through all of the rows & cols in the grid
-  
+
       //Store the current GridLocation
 
       //Store the next GridLocation
@@ -196,55 +186,50 @@ public void moveSprites(){
 
 
         //Get image/sprite from current location
-
+          
 
         //CASE 1: Collision with player1
 
 
         //CASE 2: Move enemy over to new location
 
-        
+
         //Erase image/sprite from old location
-        
+
         //System.out.println(loc + " " + grid.hasTileImage(loc));
 
 
       //CASE 3: Enemy leaves screen at first column
 
-}
+  }
 
-
-// Method to check if there is a collision between Sprites/Images on the Screen
-public boolean checkCollision(GridLocation loc, GridLocation newLoc){
+//Method to check if there is a collision between Sprites on the Screen
+public boolean checkCollision(GridLocation loc, GridLocation nextLoc){
 
   //Check what image/sprite is stored in the CURRENT location
   // PImage image = grid.getTileImage(loc);
   // AnimatedSprite sprite = grid.getTileSprite(loc);
-  
+
   //if empty --> no collision
 
   //Check what image/sprite is stored in the NEXT location
   
   //if empty --> no collision
-  
 
-  //check if an enemy is colliding with player1
-    
-    //Remove the image at that original location using the clearTileImage() or clearTileSprite() method from the Grid class.
-    
-    //Lose 1 Health from player1
-  
-  
-  //check if player1 is colliding with an enemy...
+  //check if enemy runs into player
 
+    //clear out the enemy if it hits the player (using cleartTileImage() or clearTileSprite() from Grid class)
   
-  
-  return false; //by default, there is no collision
+    //Update status variable
 
+  //check if a player collides into enemy
+
+  return false; //<--default return
 }
 
 //method to indicate when the main game is over
 public boolean isGameOver(){
+  
   return false; //by default, the game is never over
 }
 
@@ -261,8 +246,9 @@ public void endGame(){
 
 //example method that creates 5 horses along the screen
 public void exampleAnimationSetup(){  
-  int i = 1;
-  exampleSprite = new AnimatedSprite("sprites/horse_run.png", 300.0, i*100.0, "sprites/horse_run.json");
+  int i = 2;
+  exampleSprite = new AnimatedSprite("sprites/horse_run.png", 50.0, i*75.0, "sprites/horse_run.json");
+  //exampleSprite.resize(200,200);
 }
 
 //example method that animates the horse Sprites
