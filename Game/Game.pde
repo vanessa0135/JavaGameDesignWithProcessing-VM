@@ -7,8 +7,6 @@
 
 //GAME VARIABLES
 private int msElapsed = 0;
-Grid grid = new Grid(6,8);
-//HexGrid hGrid = new HexGrid(3);
 PImage bg;
 PImage player1;
 PImage enemy;
@@ -24,6 +22,10 @@ boolean doAnimation;
 
 int health = 3;
 int player1Row = 3;
+
+Grid grid = new Grid(6,8);
+//HexGrid hGrid = new HexGrid(3);
+//World world = new World("test", bg);
 
 
 //Required Processing method that gets run once
@@ -51,6 +53,10 @@ void setup() {
   
   //Animation & Sprite setup
   exampleAnimationSetup();
+
+  //Adding pixel-based Sprites to the world
+  // world.addSpriteCopyTo(exampleSprite);
+
 
   imageMode(CORNER);    //Set Images to read coordinates at corners
   //fullScreen();   //only use if not using a specfic bg image
@@ -153,6 +159,7 @@ public void updateScreen(){
   //update other screen elements
   grid.showImages();
   grid.showSprites();
+  //world.showSprites();
 
 
 }
