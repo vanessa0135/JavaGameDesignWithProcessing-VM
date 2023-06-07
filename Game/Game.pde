@@ -12,6 +12,8 @@ String extraText = "Who's Turn?";
 
 //Screens
 Screen currentScreen;
+World currentWorld;
+Grid currentGrid;
 
 //Splash Screen Variables
 Screen splashScreen;
@@ -144,7 +146,9 @@ void mouseClicked(){
   
   //check if click was successful
   System.out.println("Mouse was clicked at (" + mouseX + "," + mouseY + ")");
-  System.out.println("Grid location: " + mainGrid.getGridLocation());
+  if(currentGrid != null){
+    System.out.println("Grid location: " + currentGrid.getGridLocation());
+  }
 
   //what to do if clicked? (Make player1 jump back?)
   
@@ -153,8 +157,10 @@ void mouseClicked(){
   //Toggle the animation on & off
   doAnimation = !doAnimation;
   System.out.println("doAnimation: " + doAnimation);
-  mainGrid.setMark("X",mainGrid.getGridLocation());
-  
+  if(currentGrid != null){
+    currentGrid.setMark("X",currentGrid.getGridLocation());
+  }
+
 }
 
 
@@ -188,6 +194,7 @@ public void updateScreen(){
 
   //skyGrid Screen Updates
   if(currentScreen == mainGrid){
+    currentGrid = mainGrid;
 
     //Display the Player1 image
     GridLocation player1Loc = new GridLocation(player1Row,0);
