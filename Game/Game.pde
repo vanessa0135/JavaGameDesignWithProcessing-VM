@@ -50,19 +50,21 @@ String endBgFile = "images/youwin.png";
 void setup() {
 
   //Match the screen size to the background image size
-  size(800,600);
+  size(1424,748);
   
   //Set the title on the title bar
   surface.setTitle(titleText);
 
-  //Load BG images used
-  splashBg = loadImage(splashBgFile);
-  splashBg.resize(800,600);
-  mainBg = loadImage(mainBgFile);
-  mainBg.resize(800,600);
-  endBg = loadImage(endBgFile);
-  endBg.resize(800,600);
+  
 
+  //Load BG images used
+  splashBg = loadImage("Space.jpg");
+  splashBg.resize(1424,748);
+  mainBg = loadImage("Space.jpg");
+  mainBg.resize(1424,748);
+  endBg = loadImage("SpaceShip.jpg");
+  endBg.resize(626, 417);
+   
   //setup the screens/worlds/grids in the Game
   splashScreen = new Screen("splash", splashBg);
   mainGrid = new Grid("chessBoard", mainBg, 6, 8);
@@ -185,15 +187,15 @@ public void updateTitleBar(){
 public void updateScreen(){
 
   //Update the Background
-  background(currentScreen.getBg());
+  background(splashBg.getBg());
 
   //splashScreen update
   if(splashScreen.getScreenTime() > 3000 && splashScreen.getScreenTime() < 5000){
-    currentScreen = mainGrid;
+    splashBg = mainGrid;
   }
 
   //skyGrid Screen Updates
-  if(currentScreen == mainGrid){
+  if(splashBg == mainGrid){
     currentGrid = mainGrid;
 
     //Display the Player1 image
