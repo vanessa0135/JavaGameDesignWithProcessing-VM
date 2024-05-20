@@ -1,6 +1,6 @@
 /* Game Class Starter File
  * Authors: Joel A. Bianchi
- * Last Edit: 5/13/2024
+ * Last Edit: 5/20/2024
  */
 
 //import processing.sound.*;
@@ -20,14 +20,15 @@ Screen splashScreen;
 String splashBgFile = "images/apcsa.png";
 PImage splashBg;
 
-//Sky Screen Variables
+//MainScreen Variables
 Grid mainGrid;
-String mainBgFile = "images/chess.jpg";
+String mainBgFile = "images/sky.png";
 PImage mainBg;
 
 PImage player1;
-String player1File = "images/x_wood.png";
-int player1Row = 3;
+String player1File = "images/zapdos.png";
+int player1Row = 0;
+int player1Col = 2;
 int health = 3;
 
 PImage enemy;
@@ -65,7 +66,7 @@ void setup() {
 
   //setup the screens/worlds/grids in the Game
   splashScreen = new Screen("splash", splashBg);
-  mainGrid = new Grid("chessBoard", mainBg, 6, 8);
+  mainGrid = new Grid("sky", mainBg, 6, 6);
   endScreen = new World("end", endBg);
   currentScreen = splashScreen;
 
@@ -129,7 +130,7 @@ void keyPressed(){
   if(keyCode == 87){
    
     //Store old GridLocation
-    GridLocation oldLoc = new GridLocation(player1Row, 0);
+    GridLocation oldLoc = new GridLocation(player1Row, player1Col);
 
     //Erase image from previous location
     
@@ -197,7 +198,7 @@ public void updateScreen(){
     currentGrid = mainGrid;
 
     //Display the Player1 image
-    GridLocation player1Loc = new GridLocation(player1Row,0);
+    GridLocation player1Loc = new GridLocation(player1Row,player1Col);
     mainGrid.setTileImage(player1Loc, player1);
       
     //update other screen elements
