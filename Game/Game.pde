@@ -187,15 +187,15 @@ public void updateTitleBar(){
 public void updateScreen(){
 
   //Update the Background
-  background(splashBg.getBg());
+  background(splashScreen.getBg());
 
   //splashScreen update
   if(splashScreen.getScreenTime() > 3000 && splashScreen.getScreenTime() < 5000){
-    splashBg = mainGrid;
+    splashScreen = mainGrid;
   }
 
   //skyGrid Screen Updates
-  if(splashBg == mainGrid){
+  if(splashScreen == mainGrid){
     currentGrid = mainGrid;
 
     //Display the Player1 image
