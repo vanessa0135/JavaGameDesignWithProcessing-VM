@@ -22,7 +22,7 @@ PImage splashBg;
 
 //Sky Screen Variables
 Grid mainGrid;
-String mainBgFile = "images/chess.jpg";
+String mainBgFile = "images/Space.jpg";
 PImage mainBg;
 
 PImage player1;
@@ -67,7 +67,7 @@ void setup() {
    
   //setup the screens/worlds/grids in the Game
   splashScreen = new Screen("splash", splashBg);
-  mainGrid = new Grid("chessBoard", mainBg, 6, 8);
+  mainGrid = new Grid("Space", mainBg,6, 6);
   endScreen = new World("end", endBg);
   currentScreen = splashScreen;
 
@@ -79,7 +79,7 @@ void setup() {
   exampleAnimationSetup();
 
   //Adding pixel-based Sprites to the world
-  // mainGrid.addSpriteCopyTo(exampleSprite);
+  // mainGrid.addSpriteCopyTo(exampleSpriteet);
   mainGrid.printSprites();
   System.out.println("Done adding sprites to main world..");
   
