@@ -1,10 +1,7 @@
 /* World Class - Used to describe the screen of a pixel-based game
- * Subclass of a Screen, but now includes an ArrayList of AnimatedSprite objects
+ * Subclass of a Screen, includes an ArrayList of AnimatedSprite objects
  * Authors: Joel Bianchi, Nathan Santos, Clive Sherwood
- * Last Edit: 6/6/2023
- * Modified for Processing
- * Can add copied sprites
- * Made a subclass of Screen
+ * Last Edit: 5/20/2024
  */
 
 import java.util.ArrayList;
@@ -12,9 +9,9 @@ import java.util.ArrayList;
 public class World extends Screen{
 
   //World Fields
-  //private static World currentWorld = null;
+  //private static World currentWorld = null; //static variable to track the current world
   private ArrayList<AnimatedSprite> sprites = new ArrayList<AnimatedSprite>();
-  long lastTime = 0;
+  long lastSpriteUpdateTime = 0;
 
   //WORLD CONSTRUCTORS
   //World Constructor #1
@@ -81,11 +78,11 @@ public class World extends Screen{
   
   //method to update all sprites in the world each cycle
   public void update() {
-    long deltaTime = getTimeSince(lastTime);
+    long deltaTime = getTimeSince(lastSpriteUpdateTime);
     for (AnimatedSprite sprite : sprites) {
       sprite.update(deltaTime);
     }
-    lastTime = getScreenTime();
+    lastSpriteUpdateTime = getScreenTime();
   }
 
 }

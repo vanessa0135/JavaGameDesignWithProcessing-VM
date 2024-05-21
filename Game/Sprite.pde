@@ -1,12 +1,8 @@
 /* Sprite class - to create objects that move around with their own properties
  * Inspired by Daniel Shiffman's p5js Animated Sprite tutorial
+ * Note: Picture coordinate origina at top, left corner
  * Author: Joel Bianchi
- * Last Edit: 6/5/23
- * Modified to account for picture coordinates at Top, Left corner
- * Added Constructor #3
- * spriteImgPath renamed to spriteImgFile
- * variable renaming
- * sprite copying
+ * Last Edit: 5/20/2024
  */
 
 public class Sprite {
@@ -23,7 +19,7 @@ public class Sprite {
 
 
   // Sprite Constructor #1
-  public Sprite(String spriteImgFile, float scale, float x, float y, boolean isAnimated) {
+  public Sprite(String spriteImgFile, float x, float y, float scale, boolean isAnimated) {
     this.spriteImgFile = spriteImgFile;
     setLeft(x);
     setTop(y);
@@ -37,12 +33,17 @@ public class Sprite {
     }
   }
 
-  // Sprite Constructor #2: for Non-Animated Sprite
-  public Sprite(String spriteImgFile, float x, float y) {
-    this(spriteImgFile, 1.0, x, y, false);
+ // Sprite Constructor #2: for Non-Animated Sprite that can scale & provide a position
+  public Sprite(String spriteImgFile, float x, float y, float scale) {
+    this(spriteImgFile, x, y, scale, false);
   }
 
-  // Sprite Constructor #3: Only pass in the image
+  // Sprite Constructor #3: for Non-Animated Sprite at a specific position, unscaled
+  public Sprite(String spriteImgFile, float x, float y) {
+    this(spriteImgFile, x, y, 1.0, false);
+  }
+
+  // Sprite Constructor #4: Only pass in the image
   public Sprite(String spriteImgFile){
     this(spriteImgFile, 0.0, 0.0);
   }
@@ -72,16 +73,6 @@ public class Sprite {
     this.speedY = speedY;
   }
 
-
-  // method that automatically moves the Sprite based on its velocity
-  public void update(){
-    move(speedX, speedY);
-  }
-  public void update(float deltaTime){
-    speedX += deltaTime/1000;
-    speedY += deltaTime/1000;
-    move(speedX, speedY);
-  }
 
   // method to rotate Sprite image on the screen
   public void rotate(float degrees){
@@ -210,5 +201,17 @@ public class Sprite {
   public String toString(){
     return spriteImgFile + "\t" + getLeft() + "\t" + getTop() + "\t" + speedX + "\t" + speedY + "\t" + w + "\t" + h + "\t" + isAnimated;
   }
+
+
+  // method that automatically moves the Sprite based on its velocity
+  public void update(){
+    move(speedX, speedY);
+  }
+  public void update(float deltaTime){
+    speedX += deltaTime/1000;
+    speedY += deltaTime/1000;
+    move(speedX, speedY);
+  }
+
 
 }

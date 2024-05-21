@@ -1,10 +1,8 @@
 /* Grid Class - Used for rectangular-tiled games
  * A 2D array of GridTiles which can be marked
- * Author: Joel Bianchi
- * Last Edit: 6/6/2023
- * Edited to show all Images & Sprites
- * Made a subclass of World
- * Ability to remove marks -RJ
+ * Subclass of World that can show all Images & Sprites
+ * Author: Joel Bianchi & RJ Morel
+ * Last Edit: 5/20/2024
  */
 
 public class Grid extends World{
