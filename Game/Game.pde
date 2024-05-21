@@ -58,11 +58,11 @@ void setup() {
   
 
   //Load BG images used
-  splashBg = loadImage("Space.jpg");
+  splashBg = loadImage("images/Space.png");
   splashBg.resize(1424,748);
-  mainBg = loadImage("Space.jpg");
+  mainBg = loadImage("images/Space.png");
   mainBg.resize(1424,748);
-  endBg = loadImage("SpaceShip.jpg");
+  endBg = loadImage("images/SpaceShip.jpg");
   endBg.resize(626, 417);
    
   //setup the screens/worlds/grids in the Game
