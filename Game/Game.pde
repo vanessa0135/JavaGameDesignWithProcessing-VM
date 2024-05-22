@@ -1,6 +1,6 @@
 /* Game Class Starter File
  * Authors: Joel A. Bianchi
- * Last Edit: 5/20/2024
+ * Last Edit: 5/21/2024
  */
 
 //import processing.sound.*;
@@ -117,6 +117,8 @@ void draw() {
 
 } //end draw()
 
+
+//------------------ PROCESSING INPUT METHODS --------------------//
 
 //Known Processing method that automatically will run whenever a key is pressed
 void keyPressed(){

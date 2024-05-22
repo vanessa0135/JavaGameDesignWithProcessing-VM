@@ -262,25 +262,23 @@ public class Grid extends World{
   }
 
   //Method to clear the screen from all Images & Sprites
-    public void clearGrid(){
+  public void clearGrid(){
 
-      //Loop through all the Tiles and display its images/sprites
-        for(int r=0; r<getNumRows(); r++){
-          for(int c=0; c<getNumCols(); c++){
+    //Loop through all the Tiles and display its images/sprites
+      for(int r=0; r<getNumRows(); r++){
+        for(int c=0; c<getNumCols(); c++){
 
-            //Store temporary GridLocation
-            GridLocation tempLoc = new GridLocation(r,c);
-            
-            //Check if the tile has an image
-            if(hasTileSprite(tempLoc)){
-              setTileSprite(tempLoc, getTileSprite(tempLoc));
-              //showTileSprite(tempLoc);
-            }
+          //Store temporary GridLocation
+          GridLocation tempLoc = new GridLocation(r,c);
+          
+          //Check if the tile has an image
+          if(hasTileSprite(tempLoc)){
+            setTileSprite(tempLoc, getTileSprite(tempLoc));
+            //showTileSprite(tempLoc);
           }
         }
+      }
     }
-
-
 
 
 }
