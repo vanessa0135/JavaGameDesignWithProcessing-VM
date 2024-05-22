@@ -27,7 +27,7 @@ Grid mainGrid;
 String mainBgFile = "images/Space.jpg";
 PImage mainBg;
 
-PImage player1;
+Sprite player1;
 String player1File = "images/Astro.png";
 int player1Row = 3;
 int health = 3;
@@ -74,8 +74,8 @@ void setup() {
   currentScreen = splashScreen;
 
   //setup the sprites  
-  player1 = loadImage(player1File);
-  player1.resize(mainGrid.getTileWidthPixels(),mainGrid.getTileHeightPixels());
+  player1 = new Sprite(player1File);
+  player1.resize(100, 100);
   // enemy = loadImage("images/articuno.png");
   // enemy.resize(100,100);
   exampleAnimationSetup();
@@ -123,7 +123,7 @@ void draw() {
 
 
 //Known Processing method that automatically will run whenever a key is pressed
-void keyPressed(){
+wvoid keyPressed(){
 
   //check what key was pressed
   System.out.println("Key pressed: " + key); //keyCode gives you an integer for the key
