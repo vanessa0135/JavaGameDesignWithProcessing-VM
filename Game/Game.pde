@@ -27,7 +27,7 @@ Grid mainGrid;
 String mainBgFile = "images/Space.jpg";
 PImage mainBg;
 
-PImage player1;
+Sprite player1;
 String player1File = "images/Astro.png";
 int player1Row = 3;
 int health = 3;
@@ -64,7 +64,7 @@ void setup() {
   splashBg.resize(1424,748);
   mainBg = loadImage("images/Space.png");
   mainBg.resize(1424,748);
-  endBg = loadImage("images/SpaceShip.jpg");
+  endBg = loadImage("images/spaceShip.jpg");
   endBg.resize(626, 417);
    
   //setup the screens/worlds/grids in the Game
@@ -74,8 +74,11 @@ void setup() {
   currentScreen = splashScreen;
 
   //setup the sprites  
-  player1 = loadImage(player1File);
-  player1.resize(mainGrid.getTileWidthPixels(),mainGrid.getTileHeightPixels());
+  player1 = new Sprite(player1File);
+  // mainGrid.setTileSprite(player1);
+  // mainGrid.addSprite(player1);
+
+ // player1.resize(100,100);
   // enemy = loadImage("images/articuno.png");
   // enemy.resize(100,100);
   exampleAnimationSetup();
@@ -195,6 +198,7 @@ public void updateScreen(){
   //splashScreen update
   if(splashScreen.getScreenTime() > 3000 && splashScreen.getScreenTime() < 5000){
     splashScreen = mainGrid;
+    player1.show();
   }
 
   //skyGrid Screen Updates
@@ -203,7 +207,7 @@ public void updateScreen(){
 
     //Display the Player1 image
     GridLocation player1Loc = new GridLocation(player1Row,0);
-    mainGrid.setTileImage(player1Loc, player1);
+    mainGrid.setTileSprite(player1Loc, player1);
       
     //update other screen elements
     mainGrid.showSprites();
