@@ -28,7 +28,7 @@ String mainBgFile = "images/Space.jpg";
 PImage mainBg;
 
 PImage player1;
-String player1File = "images/x_wood.png";
+String player1File = "images/Astro.png";
 int player1Row = 3;
 int health = 3;
 
@@ -37,7 +37,6 @@ AnimatedSprite enemySprite;
 
 AnimatedSprite exampleSprite;
 boolean doAnimation;
-
 //EndScreen variables
 World endScreen;
 PImage endBg;
