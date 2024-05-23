@@ -75,10 +75,14 @@ void setup() {
 
   //setup the sprites  
   player1 = new Sprite(player1File);
+
   // mainGrid.setTileSprite(player1);
   // mainGrid.addSprite(player1);
 
  // player1.resize(100,100);
+
+  player1.resize(100, 100);
+
   // enemy = loadImage("images/articuno.png");
   // enemy.resize(100,100);
   exampleAnimationSetup();
@@ -126,7 +130,7 @@ void draw() {
 
 
 //Known Processing method that automatically will run whenever a key is pressed
-void keyPressed(){
+wvoid keyPressed(){
 
   //check what key was pressed
   System.out.println("Key pressed: " + key); //keyCode gives you an integer for the key
