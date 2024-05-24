@@ -69,19 +69,17 @@ void setup() {
    
   //setup the screens/worlds/grids in the Game
   splashScreen = new Screen("splash", splashBg);
-  mainGrid = new Grid("Space", mainBg,6, 6);
+  mainGrid = new Grid("Space", mainBg, 6, 6);
   endScreen = new World("end", endBg);
   currentScreen = splashScreen;
 
   //setup the sprites  
-  player1 = new Sprite(player1File);
+  player1 = new Sprite("images/Astro.png", 50, 748/2);
 
   // mainGrid.setTileSprite(player1);
   // mainGrid.addSprite(player1);
 
  // player1.resize(100,100);
-
-  player1.resize(100, 100);
 
   // enemy = loadImage("images/articuno.png");
   // enemy.resize(100,100);
@@ -130,7 +128,7 @@ void draw() {
 
 
 //Known Processing method that automatically will run whenever a key is pressed
-wvoid keyPressed(){
+void keyPressed(){
 
   //check what key was pressed
   System.out.println("Key pressed: " + key); //keyCode gives you an integer for the key
@@ -211,8 +209,9 @@ public void updateScreen(){
 
     //Display the Player1 image
     GridLocation player1Loc = new GridLocation(player1Row,0);
-    mainGrid.setTileSprite(player1Loc, player1);
-      
+    //mainGrid.setTileSprite(player1Loc, player1);
+    //player1.show();
+
     //update other screen elements
     mainGrid.showSprites();
     mainGrid.showImages();
@@ -231,7 +230,7 @@ public void updateScreen(){
 public void populateSprites(){
 
   //What is the index for the last column?
-  
+  int lastCol = mainGrid.getNumCols() -1;
 
   //Loop through all the rows in the last column
 
