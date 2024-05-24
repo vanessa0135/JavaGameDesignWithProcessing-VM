@@ -81,7 +81,7 @@ void setup() {
 
  // player1.resize(100,100);
 
-  player1.resize(100, 100);
+  //player1.resize(100, 100);
 
   // enemy = loadImage("images/articuno.png");
   // enemy.resize(100,100);
@@ -130,7 +130,7 @@ void draw() {
 
 
 //Known Processing method that automatically will run whenever a key is pressed
-wvoid keyPressed(){
+void keyPressed(){
 
   //check what key was pressed
   System.out.println("Key pressed: " + key); //keyCode gives you an integer for the key
