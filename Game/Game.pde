@@ -32,6 +32,11 @@ String player1File = "images/Astro.png";
 int player1Row = 3;
 int health = 3;
 
+Sprite player2;
+String player2File = "images/Astro2.png";
+int player2Row = 1;
+int health2 = 3;
+
 PImage enemy;
 AnimatedSprite enemySprite;
 
@@ -75,13 +80,14 @@ void setup() {
 
   //setup the sprites  
   player1 = new Sprite(player1File);
+  player2 = new Sprite(player2File);
 
   // mainGrid.setTileSprite(player1);
   // mainGrid.addSprite(player1);
 
  // player1.resize(100,100);
 
-  player1.resize(100, 100);
+  //player1.resize(100, 100);
 
   // enemy = loadImage("images/articuno.png");
   // enemy.resize(100,100);
@@ -133,7 +139,7 @@ void draw() {
 wvoid keyPressed(){
 
   //check what key was pressed
-  System.out.println("Key pressed: " + key); //keyCode gives you an integer for the key
+  System.out.println("Key pressed: " + keyCode); //keyCode gives you an integer for the key
 
   //What to do when a key is pressed?
   
