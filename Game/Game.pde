@@ -81,6 +81,8 @@ void setup() {
 
  // player1.resize(100,100);
 
+
+
   // enemy = loadImage("images/articuno.png");
   // enemy.resize(100,100);
   exampleAnimationSetup();
