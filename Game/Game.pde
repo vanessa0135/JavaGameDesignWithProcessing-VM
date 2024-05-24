@@ -79,12 +79,12 @@ void setup() {
   currentScreen = splashScreen;
 
   //setup the sprites  
-  //player1 = new Sprite(player1File);
+  player1 = new Sprite("images/Astro.png", 0.8);
+  player1.move(50, 748/2);
 
   // mainGrid.setTileSprite(player1);
   // mainGrid.addSprite(player1);
 
- // player1.resize(100,100);
 
   //player1.resize(100, 100);
 
@@ -217,7 +217,7 @@ public void updateScreen(){
     //Display the Player1 image
     GridLocation player1Loc = new GridLocation(player1Row,0);
     //mainGrid.setTileSprite(player1Loc, player1);
-    //player1.show();
+    player1.show();
 
     //update other screen elements
     mainGrid.showSprites();
@@ -322,9 +322,9 @@ public void endGame(){
 
 //example method that creates 1 horse run along the screen
 public void exampleAnimationSetup(){  
-  int i = 2;
-  exampleSprite = new AnimatedSprite("sprites/horse_run.png", "sprites/horse_run.json", 50.0, i*75.0);
-  //exampleSprite.resize(200,200);
+//   int i = 2;
+//   exampleSprite = new AnimatedSprite("sprites/horse_run.png", "sprites/horse_run.json", 50.0, i*75.0);
+//   //exampleSprite.resize(200,200);
 }
 
 //example method that animates the horse Sprites
