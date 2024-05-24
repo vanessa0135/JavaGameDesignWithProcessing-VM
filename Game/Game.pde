@@ -9,7 +9,7 @@
 
 //Title Bar
 private int msElapsed = 0;
-String titleText = "HorseChess";
+String titleText = "Stellar Sprint";
 String extraText = "Who's Turn?";
 
 //Current Screens
@@ -79,7 +79,11 @@ void setup() {
   currentScreen = splashScreen;
 
   //setup the sprites  
-  
+  player1 = new Sprite("images/Astro.png", 0.8);
+  player2 = new Sprite("images/Astro2.png", 0.8);
+  player1.move(50, 748/2);
+  player1.move(50, 648/2);
+
 
   // mainGrid.setTileSprite(player1);
   // mainGrid.addSprite(player1);
@@ -229,7 +233,9 @@ public void updateScreen(){
     GridLocation player1Loc = new GridLocation(player1Row,0);
     GridLocation player2Loc = new GridLocation(player2Row,0);
     //mainGrid.setTileSprite(player1Loc, player1);
-    //player1.show();
+    player1.show();
+    player2.show();
+
 
     //update other screen elements
     mainGrid.showSprites();
