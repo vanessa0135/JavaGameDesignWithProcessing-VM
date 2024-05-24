@@ -79,7 +79,11 @@ void setup() {
   currentScreen = splashScreen;
 
   //setup the sprites  
-  //player1 = new Sprite(player1File);
+  player1 = new Sprite("images/Astro.png", 0.8);
+  player1.move(50, 900/2);
+
+  player2 = new Sprite("images/Astro2.png", 0.8);
+  player2.move(50, 200/2);
 
   // mainGrid.setTileSprite(player1);
   // mainGrid.addSprite(player1);
@@ -155,6 +159,17 @@ void keyPressed(){
     player1Row--;
   }
 
+ if(keyCode == 38){
+   
+    //Store old GridLocation
+    GridLocation oldLoc = new GridLocation(player2Row, 0);
+
+    //Erase image from previous location
+    
+
+    //change the field for player2Row
+    player2Row--;
+  }
 
 }
 
@@ -208,6 +223,7 @@ public void updateScreen(){
   if(splashScreen.getScreenTime() > 3000 && splashScreen.getScreenTime() < 5000){
     splashScreen = mainGrid;
     player1.show();
+    player2.show();
   }
 
   //skyGrid Screen Updates
@@ -216,8 +232,10 @@ public void updateScreen(){
 
     //Display the Player1 image
     GridLocation player1Loc = new GridLocation(player1Row,0);
+    GridLocation player2Loc = new GridLocation(player2Row,0);
     //mainGrid.setTileSprite(player1Loc, player1);
-    //player1.show();
+    player1.show();
+    player2.show();
 
     //update other screen elements
     mainGrid.showSprites();
