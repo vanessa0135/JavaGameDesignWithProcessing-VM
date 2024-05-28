@@ -1,13 +1,14 @@
 /* Screen class - a high level class that handles background screens & millisecond timing
  * Has a World Subclass
  * Author: Joel Bianchi & Carey Jiang
- * Last Edit: 5/20/2024
+ * Last Edit: 5/28/24
+ * Ability to reset the timer for a particular screen
  * Added moveable background
  */
 
 public class Screen {
 
-    //Screen fields
+    //------------------ SCREEN FIELDS --------------------//
     private String screenName;
     private PImage bg;
     private boolean isMoveable;
@@ -16,14 +17,16 @@ public class Screen {
     private long startTime;
     private long lastTime = 0;
 
+    //------------------ SCREEN CONSTRUCTORS --------------------//
+
     //Screen Constructor #1: For background images that move (Coded as a Sprite, not a Processing background PImage)
-    public Screen(String screenName, String movingBgFile, float x, float y, float scale) {
+    public Screen(String screenName, String movingBgFile, float scale, float x, float y) {
         this.isMoveable = true;
         this.setName(screenName);
-        mbg = new Sprite(movingBgFile, x, y, scale);
+        mbg = new Sprite(movingBgFile, scale, x, y);
         
-        this.x = x;
-        this.y = y;
+        // this.x = x;
+        // this.y = y;
         startTime = getTotalTime();
     }
 
@@ -36,7 +39,7 @@ public class Screen {
         }
     }
 
-    //Screen Accessors + Mutators
+    //------------------ ACCESSORS & MUTATORS --------------------//
     public void setName(String screenName){
         this.screenName = screenName;
     }
@@ -54,44 +57,44 @@ public class Screen {
         return bg;
     }
 
-    //SCREEN MOVING METHODS
+
+    //------------------ SCREEN MOVING METHODS --------------------//
 
     //move the background image in the X direction
     public void moveBgXY(float speedX, float speedY){
-        mbg.move(speedX, speedY);
+        if(isMoveable){
+            mbg.move(speedX, speedY);
+        } else {
+            System.out.println("Can't move this background");
+        }
     }
 
-    
-
-    //speedx
-    //speedy
-    //movexy
-    //restart
-    //incrementalmovex
-    //incrementalmovey
-
-
-    public void setX(float x) {
-        this.x = x;
+    public void setLeftX(float leftX) {
+        mbg.setLeft(leftX);
     }
-    public float getX() {
-        return x;
+    public float getLeftX() {
+        return mbg.getLeft();
     }
 
-    public void setY(float y) {
-        this.y = y;
+    public void setTopY(float topY) {
+        mbg.setTop(topY);
     }
-    public float getY() {
-        return y;
+    public float getTopY() {
+        return mbg.getTop();
     }
 
-    //???
-    public void setScreenSize(int w, int h){
-
+    //updates any movement of the background
+    public void show(){
+        if(isMoveable){
+            mbg.show();
+            //System.out.println("Showing mbg");
+        }
     }
-    
 
-    //SCREEN TIME METHODS
+
+
+    //------------------ SCREEN TIME METHODS --------------------//
+
     public long getTotalTime(){
         return millis();  //milliseconds world
     }
@@ -114,21 +117,15 @@ public class Screen {
         }
     }
 
+    //resets the timer for the screen
+    public void resetTime(){
+        startTime = getTotalTime();
+    }
+
 
 
     public String toString(){
-        return "Screen: " + screenName + " at " + x + "," + y;
-    }
-
-    //updates the time and any movement of the background
-    public void updateScreen(){
-
-        //update time
-
-        if(isMoveable){
-            //update screen
-        }
-
+        return "Screen: " + screenName + " at LeftX:" + getLeftX() + " ,TopY:" + getTopY() ;
     }
 
 
