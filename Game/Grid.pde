@@ -1,10 +1,8 @@
 /* Grid Class - Used for rectangular-tiled games
  * A 2D array of GridTiles which can be marked
  * Author: Joel Bianchi
- * Last Edit: 6/6/2023
- * Edited to show all Images & Sprites
- * Made a subclass of World
- * Ability to remove marks -RJ
+ * Last Edit: 5/28/2024
+ * Ability to animate sprites in Grid tiles
  */
 
 public class Grid extends World{
@@ -236,6 +234,13 @@ public class Grid extends World{
     setTileSprite(loc,null);
   }
 
+  //Method that clears the tile image
+  public void animateTileSprite(GridLocation loc){
+    AnimatedSprite aSprite = getTileSprite(loc);
+    aSprite.animate();
+    //System.out.println("animating");
+  }
+
   public void showTileSprite(GridLocation loc){
     GridTile tile = getTile(loc);
     if(tile.hasSprite()){
@@ -256,7 +261,8 @@ public class Grid extends World{
           
           //Check if the tile has an image
           if(hasTileSprite(tempLoc)){
-            setTileSprite(tempLoc, getTileSprite(tempLoc));
+            //setTileSprite(tempLoc, getTileSprite(tempLoc));
+            animateTileSprite(tempLoc);
             //showTileSprite(tempLoc);
           }
         }
@@ -277,12 +283,10 @@ public class Grid extends World{
             if(hasTileSprite(tempLoc)){
               setTileSprite(tempLoc, getTileSprite(tempLoc));
               //showTileSprite(tempLoc);
+    
             }
           }
         }
     }
-
-
-
 
 }

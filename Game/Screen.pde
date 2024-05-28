@@ -1,7 +1,8 @@
 /* Screen class - a high level class that handles background screens & millisecond timing
  * Has a World Subclass
  * Author: Joel Bianchi
- * Last Edit: 6/6/23
+ * Last Edit: 5/28/24
+ * Ability to reset the timer for a particular screen
  */
 
 public class Screen {
@@ -61,10 +62,11 @@ public class Screen {
         return y;
     }
 
-    //???
-    public void setScreenSize(int w, int h){
-
-    }
+    //??? test 
+    // public void setScreenSize(int w, int h){
+    //     x = (float)w;
+    //     y = (float)h;
+    // }
 
     public String toString(){
         return "Screen: " + screenName + " at " + x + "," + y;
@@ -90,6 +92,9 @@ public class Screen {
     }
     public float getScreenTimeSeconds(){
         return getScreenTime() / 1000.0f;
+    }
+    public void resetTime(){
+        startTime = getTotalTime();
     }
 
 }
