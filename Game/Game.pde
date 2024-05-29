@@ -19,17 +19,36 @@ String splashBgFile = "images/apcsa.png";
 
 //Level1 Grid-Screen Variables
 Grid level1Grid;
+World level1World;
 PImage level1Bg;
 String level1BgFile = "images/Space.jpg";
+
 Sprite player1;
 String player1File = "images/Astro.png";
 int player1Row = 3;
 int player1Col = 0;
 int health = 3;
+
 Sprite player2;
 String player2File = "images/Astro2.png";
 int player2Row = 1;
 int health2 = 3;
+
+Sprite alien1;
+String alien1File = "images/Alien1.png";
+int alien1Row = 2;
+int alien1Col = 3;
+
+Sprite alien2;
+String alien2File = "images/Alien2.png";
+int alien2Row = 1;
+int alien2Col = 3;
+
+Sprite alien3;
+String alien3File = "images/Alien3.png";
+int alien3Row = 2;
+int alien3Col = 2;
+
 Button b1 = new Button("rect", 400, 500, 100, 50, "GoToLevel2");
 
 //EndScreen variables
@@ -72,6 +91,7 @@ void setup() {
   //setup the screens/worlds/grids in the Game
   splashScreen = new Screen("splash", splashBg);
   level1Grid = new Grid("Space", level1Bg, 6, 6);
+  level1World = new World("Space", level1Bg);
   //level2World = new World("sky", level2BgFile, 8.0, 0, 0); //moveable World constructor --> defines center & scale (x, scale, y)???
   //level2World = new World("sky", level2Bg);   //simple World construtor
   endScreen = new World("end", endBg);
@@ -90,8 +110,11 @@ void setup() {
 //h
   //player1.resize(100, 100);
 
-  // enemy = loadImage("images/articuno.png");
-  // enemy.resize(100,100);
+  alien1 = new Sprite("images/Alien1.png", 0.8);
+  alien2 = new Sprite("images/Alien2.png", 0.8);
+  alien3 = new Sprite("images/Alien3.png", 0.8);
+
+  //  enemy.resize(100,100);
 
   //Adding pixel-based Sprites to the world
   // level1Grid.addSpriteCopyTo(exampleSpriteet);
@@ -236,27 +259,34 @@ public void updateScreen(){
 
   //splashScreen update
   if(splashScreen.getScreenTime() > 3000 && splashScreen.getScreenTime() < 5000){
-    currentScreen = level1Grid;
+    currentScreen = level1World;
     player1.show();
     player2.show();
   }
 
-  //level1Grid Screen Updates
-  if(currentScreen == level1Grid){
-    currentGrid = level1Grid;
+  //level1Screen Screen Updates
+  if(currentScreen == level1World){
+    currentScreen = level1World;
 
     //Display the Player1 image
-    GridLocation player1Loc = new GridLocation(player1Row,0);
-    GridLocation player2Loc = new GridLocation(player2Row,0);
+    // GridLocation player1Loc = new GridLocation(player1Row,0);
+    // GridLocation player2Loc = new GridLocation(player2Row,0);
     //level1Grid.setTileSprite(player1Loc, player1);
     player1.show();
     player2.show();
 
+    alien1.show();
+    //alien1.setSpeed(100, 100);
+    alien2.show();
+    alien3.show();
 
+  // for(int i = 0; i< 10; i++){
+  //   alien1.move(-100, 100);
+  // }
     //update other screen elements
-    level1Grid.showSprites();
-    level1Grid.showImages();
-    level1Grid.showGridSprites();
+    level1World.showSprites();
+    // level1Grid.showImages();
+    // level1Grid.showGridSprites();
 
     //move to next level based on a button click
     b1.show();
