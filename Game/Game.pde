@@ -22,7 +22,6 @@ Grid level1Grid;
 World level1World;
 PImage level1Bg;
 String level1BgFile = "images/Space.jpg";
-
 Sprite player1;
 String player1File = "images/Astro.png";
 int player1Row = 3;
@@ -30,6 +29,7 @@ int player1Col = 0;
 int health = 3;
 
 Sprite player2;
+
 String player2File = "images/Astro2.png";
 int player2Row = 1;
 int health2 = 3;
@@ -98,10 +98,10 @@ void setup() {
   currentScreen = splashScreen;
 
   //setup the sprites  
-  player1 = new Sprite("images/Astro.png", 0.8);
-  player2 = new Sprite("images/Astro2.png", 0.8);
-  player1.move(50, 748/2);
-  player1.move(50, 648/2);
+  player1 = new Sprite("images/Astro.png", 0.7);
+  player2 = new Sprite("images/Astro2.png", 0.7);
+  player1.move(50, 800/2);
+  player2.move(50, 400/2);
 
 
   // mainGrid.setTileSprite(player1);
@@ -173,28 +173,43 @@ void keyPressed(){
 
     //set [W] key to move the player1 up & avoid Out-of-Bounds errors
     if(keyCode == 87){
-    
-      //Store old GridLocation
-      GridLocation oldLoc = new GridLocation(player1Row, player1Col);
-
-      //Erase image from previous location
-      
-
-      //change the field for player1Row
-      player1Row--;
+      player1.move(0,-70);
+    }
+     if(keyCode == 65){
+      player1.move(-70,0);
+    }
+     if(keyCode == 68){
+      player1.move(70,0);
+    }
+     if(keyCode == 83){
+      player1.move(0,70);
     }
 
+   //move by arrows 
   if(keyCode == 38){
     
-      //Store old GridLocation
-      GridLocation oldLoc = new GridLocation(player2Row, 0);
-
-      //Erase image from previous location
-      
-
-      //change the field for player2Row
-      player2Row--;
+   
+     player2.move(0, -50);
     }
+
+    if(keyCode == 37){
+    
+    
+     player2.move(-70,0);
+    }
+    if(keyCode == 40){
+    
+      
+     player2.move(0, 70);
+    }
+    if(keyCode == 39){
+    
+     
+     player2.move(70, 0);
+    }
+
+    
+
 
     
 
