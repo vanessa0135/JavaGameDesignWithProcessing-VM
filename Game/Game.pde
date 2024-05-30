@@ -38,7 +38,7 @@ Button b1 = new Button("rect", 650, 525, 100, 50, "GoToLevel2");
 World level2World;
 PImage level2Bg;
 String level2BgFile = "images/sky.jpg";
-Sprite player2;   //Use PImage to display the image in a GridLocation
+Sprite player2; //Use Sprite for a pixel-based Location
 String player2File = "images/zapdos.png";
 int player2startX = 50;
 int player2startY = 300;
@@ -240,9 +240,6 @@ public void updateScreen(){
     //Display the Player1 image
     GridLocation player1Loc = new GridLocation(player1Row,0);
     level1Grid.setTileImage(player1Loc, player1);
-
-    //Add other Sprites into Level1
-    //level1Grid.setTileSprite(new GridLocation(3,3),runningHorse); //example Sprite added to a GridTile
     
     //update other screen elements
     level1Grid.showGridImages();
@@ -372,18 +369,3 @@ public void endGame(){
     currentScreen = endScreen;
 
 }
-
-// //example method that creates 1 horse run along the screen
-// public void exampleAnimationSetup(){  
-//   int i = 2;
-//   exampleSprite = new AnimatedSprite("sprites/horse_run.png", "sprites/horse_run.json", 50.0, i*75.0);
-//   //exampleSprite.resize(200,200);
-// }
-
-// //example method that animates the horse Sprites
-// public void checkExampleAnimation(){
-//   if(doAnimation){
-
-//     //System.out.println("animating!");
-//   }
-// }
