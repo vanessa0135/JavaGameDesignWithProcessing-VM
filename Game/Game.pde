@@ -9,8 +9,8 @@
 //------------------ GAME VARIABLES --------------------//
 
 //VARIABLES: Title Bar
-String titleText = "HorseChess";
-String extraText = "Who's Turn?";
+String titleText = "PeanutChessSkyHorse";
+String extraText = "CurrentLevel?";
 
 //VARIABLES: Whole Game
 AnimatedSprite runningHorse;
@@ -157,7 +157,7 @@ void keyPressed(){
     
       //Store old GridLocation
       GridLocation oldLoc = new GridLocation(player1Row, player1Col);
-
+      
       //Erase image from previous location
       
 
