@@ -27,6 +27,7 @@ String splashBgFile = "images/apcsa.png";
 World level1World;
 PImage level1Bg;
 String level1BgFile = "images/Space.jpg";
+
 Sprite player1;
 String player1File = "images/Astro.png";
 int player1Row = 3;
@@ -114,10 +115,12 @@ void setup() {
   player1.move(50, 800/2);
   player2.move(50, 400/2);
 
-  alien1 = new Sprite("images/Alien1.png", 0.8);
-  alien1.moveTo(600,100); //function to have alien Sprite start at interesting location
-  alien2 = new Sprite("images/Alien2.png", 0.8);
-  alien3 = new Sprite("images/Alien3.png", 0.8);
+  alien1 = new Sprite("images/Alien1.png", 0.6);
+  alien1.move(1424,100); //function to have alien Sprite start at interesting location
+  alien2 = new Sprite("images/Alien2.png", 0.6);
+  alien2.move(1424, 200);
+  alien3 = new Sprite("images/Alien3.png", 0.6);
+
 
   walkingChick = new AnimatedSprite("sprites/chick_walk.png", "sprites/chick_walk.json", 0.0, 0.0, 5.0);
   level1World.addSpriteCopyTo(walkingChick, 100, 200);  //example Sprite added to a World at a location, with a speed
@@ -143,11 +146,12 @@ void draw() {
 
   updateTitleBar();
   updateScreen();
+  populateSprites();
+
 
   //simple timing handling
   if (msElapsed % 300 == 0) {
     //sprite handling
-    populateSprites();
     moveSprites();
   }
   msElapsed +=100;
@@ -290,11 +294,7 @@ public void updateScreen(){
     player1.show();
     player2.show();
 
-    alien1.move(-10, 5);
-    alien1.show();
-    //alien1.setSpeed(100, 100);
-    alien2.show();
-    alien3.show();
+  
 
     //update other screen elements
     level1World.showWorldSprites();
@@ -316,10 +316,32 @@ public void updateScreen(){
 public void populateSprites(){
 
   //What is the index for the last column?
-  //int lastCol = level1Grid.getNumCols() -1;
-
+    //int lastCol = level1Grid.getNumCols() -1;
+    //alien1.move(200, 500);
   //Loop through all the rows in the last column
+  int msSprites = 0;
+  float randoX = (float) Math.random()  * 700;
+  float randoY = (float)  Math.random()  * 748;
+  System.out.println("x: " + randoX);
 
+  alien1.move(-10,0);
+     
+    // //alien1.setSpeed(100, 100);
+     alien2.show();
+     alien3.show();
+
+
+  if (msSprites % 1000 == 0) {
+    //sprite handling
+    level1World.addSprite(alien1.copyTo(1424, randoY));
+    alien1.show();
+  }
+
+  msSprites +=10;
+  //currentScreen.pause(100);
+  
+    
+  
     //Generate a random number
 
 
