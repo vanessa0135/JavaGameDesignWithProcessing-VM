@@ -54,6 +54,11 @@ String alien3File = "images/Alien3.png";
 int alien3Row = 2;
 int alien3Col = 2;
 
+Sprite star;
+String starFile = "images/Star.png";
+int starRow = 2;
+int starCol = 3;
+
 AnimatedSprite walkingChick;
 Button b1 = new Button("rect", 650, 525, 100, 50, "GoToLevel2");
 
@@ -294,7 +299,11 @@ public void updateScreen(){
     player1.show();
     player2.show();
 
-  
+    alien1.move(-10, 5);
+    alien1.show();
+    //alien1.setSpeed(100, 100);
+    alien2.show();
+    alien3.show();
 
     //update other screen elements
     level1World.showWorldSprites();
