@@ -53,6 +53,11 @@ String alien3File = "images/Alien3.png";
 int alien3Row = 2;
 int alien3Col = 2;
 
+Sprite star;
+String starFile = "images/Star.png";
+int starRow = 2;
+int starCol = 3;
+
 AnimatedSprite walkingChick;
 Button b1 = new Button("rect", 650, 525, 100, 50, "GoToLevel2");
 
@@ -114,10 +119,13 @@ void setup() {
   player1.move(50, 800/2);
   player2.move(50, 400/2);
 
-  alien1 = new Sprite("images/Alien1.png", 0.8);
+  alien1 = new Sprite("images/Alien1.png", 0.7);
   alien1.moveTo(600,100); //function to have alien Sprite start at interesting location
-  alien2 = new Sprite("images/Alien2.png", 0.8);
-  alien3 = new Sprite("images/Alien3.png", 0.8);
+  alien2 = new Sprite("images/Alien2.png", 0.7);
+  alien3 = new Sprite("images/Alien3.png", 0.7);
+
+  star = new Sprite("images/Star.png", 0.2);
+  star.moveTo(600,100);
 
   walkingChick = new AnimatedSprite("sprites/chick_walk.png", "sprites/chick_walk.json", 0.0, 0.0, 5.0);
   level1World.addSpriteCopyTo(walkingChick, 100, 200);  //example Sprite added to a World at a location, with a speed
@@ -290,11 +298,13 @@ public void updateScreen(){
     player1.show();
     player2.show();
 
-    alien1.move(-10, 5);
+    alien1.move(-10, 0);
     alien1.show();
     //alien1.setSpeed(100, 100);
     alien2.show();
     alien3.show();
+    star.move(-10, 0);
+    star.show();
 
     //update other screen elements
     level1World.showWorldSprites();
