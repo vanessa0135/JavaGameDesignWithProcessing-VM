@@ -173,7 +173,7 @@ void draw() {
     moveSprites();
   }
   msElapsed +=100;
-  currentScreen.pause(100);
+  currentScreen.pause(50);
 
   //check for end of game
   if(isGameOver()){
@@ -198,16 +198,16 @@ void keyPressed(){
 
     //set [W] key to move the player1 up & avoid Out-of-Bounds errors
     if(keyCode == 87){
-      player1.move(0,-70);
+      player1.move(0,-20);
     }
      if(keyCode == 65){
-      player1.move(-70,0);
+      player1.move(-20,0);
     }
      if(keyCode == 68){
-      player1.move(70,0);
+      player1.move(20,0);
     }
      if(keyCode == 83){
-      player1.move(0,70);
+      player1.move(0,20);
     }
 
    //move by arrows 
@@ -375,7 +375,7 @@ public void populateSprites(){
     alien2.show();
     
   }
-  msSprites +=10;
+  msSprites +=100;
   
     //Generate a random number
 
