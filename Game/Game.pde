@@ -76,6 +76,9 @@ World currentWorld;
 Grid currentGrid;
 private int msElapsed = 0;
 
+//variables for pop sprite methods
+int alienCount = 0;
+int msSprites = 0;
 
 //------------------ REQUIRED PROCESSING METHODS --------------------//
 
@@ -147,16 +150,22 @@ void setup() {
 
 //Required Processing method that automatically loops
 //(Anything drawn on the screen should be called from here)
+
 void draw() {
+
 
   updateTitleBar();
   updateScreen();
   populateSprites();
-
+ 
 
   //simple timing handling
   if (msElapsed % 300 == 0) {
     //sprite handling
+    //if( alienCount < 1){
+    
+    //alienCount++;
+    //}
     moveSprites();
   }
   msElapsed +=100;
@@ -299,7 +308,7 @@ public void updateScreen(){
     player1.show();
     player2.show();
 
-    alien1.move(-10, 5);
+    //alien1.move(-10, 0);
     alien1.show();
     //alien1.setSpeed(100, 100);
     alien2.show();
@@ -328,28 +337,36 @@ public void populateSprites(){
     //int lastCol = level1Grid.getNumCols() -1;
     //alien1.move(200, 500);
   //Loop through all the rows in the last column
-  int msSprites = 0;
-  float randoX = (float) Math.random()  * 700;
-  float randoY = (float)  Math.random()  * 748;
+  
+  float randoX = (float) Math.random()  * 10;
+  float randoY = (float)  Math.random()  * 630;
   System.out.println("x: " + randoX);
 
   alien1.move(-10,0);
      
-    // //alien1.setSpeed(100, 100);
-     alien2.show();
-     alien3.show();
+  //alien1.setSpeed(100, 100);
+  alien2.show();
+  alien3.show();
 
 
   if (msSprites % 1000 == 0) {
-    //sprite handling
-    level1World.addSprite(alien1.copyTo(1424, randoY));
-    alien1.show();
-  }
+    System.out.println("sprites are being shown");
 
-  msSprites +=10;
-  //currentScreen.pause(100);
-  
+    //sprite handling
+
+    level1World.addSprite(alien1.copyTo(1424, randoY+100));
+
+    for(int i = 0; i < level1World.getSprites().size(); i++){
+      level1World.getSprites().get(i).move(-10, 0);
+    }
+    level1World.addSprite(alien2.copyTo(1424, randoY+200));
+    //level1World.addSprite(alien1.copyTo(1424, randoY+100));
+
+    alien1.show();
+    alien2.show();
     
+  }
+  msSprites +=10;
   
     //Generate a random number
 
