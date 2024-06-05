@@ -11,6 +11,8 @@
 //Title Bar
 String titleText = "Stellar Sprint";
 String extraText = "Who's Turn?";
+String counter = "Counter P1 =  ";
+String counter2 = "Counter P2 =  ";
 
 //VARIABLES: Whole Game
 AnimatedSprite runningHorse;
@@ -125,6 +127,8 @@ void setup() {
   alien2 = new Sprite("images/Alien2.png", 0.6);
   alien2.move(1424, 200);
   alien3 = new Sprite("images/Alien3.png", 0.6);
+  star = new Sprite("images/Star.png", 0.3);
+  star.move(1424,100);
 
 
   walkingChick = new AnimatedSprite("sprites/chick_walk.png", "sprites/chick_walk.json", 0.0, 0.0, 5.0);
@@ -272,9 +276,12 @@ public void updateTitleBar(){
     surface.setTitle(titleText + "    " + extraText + " " + health);
 
     //adjust the extra text as desired
-  
+    if (checkCollision()){
+      surface.setTitle(counter + count1 );
+    }
   }
 }
+
 
 //method to update what is drawn on the screen each frame
 public void updateScreen(){
@@ -304,6 +311,8 @@ public void updateScreen(){
     //alien1.setSpeed(100, 100);
     alien2.show();
     alien3.show();
+    star.move(-10, 0);
+    star.show();
 
     //update other screen elements
     level1World.showWorldSprites();
@@ -391,24 +400,26 @@ public void moveSprites(){
 
 //Method to check if there is a collision between Sprites on the Screen
 public boolean checkCollision(GridLocation loc, GridLocation nextLoc){
+   
+     count1 = 0;
+     count2 = 0;
 
-  //Check what image/sprite is stored in the CURRENT location
-  // PImage image = grid.getTileImage(loc);
-  // AnimatedSprite sprite = grid.getTileSprite(loc);
+   if (player1.getTop() > Star.getBottom()){
+    if (player1.getBottom() < Star.getTop()) {
+      if (player1.getRight() > star.getLeft()){
+        if (player1.getLeft() > Star.getRight()){
+        
+            checkCollision = true; 
+            count1 =+ 1;
 
-  //if empty --> no collision
+        }
+      }
+    }
+   }
 
-  //Check what image/sprite is stored in the NEXT location
 
-  //if empty --> no collision
 
-  //check if enemy runs into player
 
-    //clear out the enemy if it hits the player (using cleartTileImage() or clearTileSprite() from Grid class)
-
-    //Update status variable
-
-  //check if a player collides into enemy
 
   return false; //<--default return
 }
