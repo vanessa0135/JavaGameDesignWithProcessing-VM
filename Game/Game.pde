@@ -1,7 +1,6 @@
 /* Game Class Starter File
- * Authors: Joel A. Bianchi
- * Last Edit: 5/29/2024
- * Modified for AnimatedSprites
+ * Authors: Vanessa B & Mariam L
+ * Last Edit: 6/5/2024
  */
 
 //import processing.sound.*;
@@ -285,9 +284,9 @@ public void updateTitleBar(){
     surface.setTitle(titleText + "    " + extraText + " " + health);
 
     //adjust the extra text as desired
-    if (checkCollision()){
-      surface.setTitle(counter + count1 );
-    }
+    // if (isCollision()){
+    //   surface.setTitle(counter + count1 );
+    // }
   }
 }
 
@@ -358,7 +357,7 @@ public void populateSprites(){
   alien3.show();
 
 
-  if (msSprites % 1000 == 0) {
+  if (msElapsed % 1000 == 0) {
     System.out.println("sprites are being shown");
 
     //sprite handling
@@ -375,7 +374,7 @@ public void populateSprites(){
     alien2.show();
     
   }
-  msSprites +=100;
+  // msSprites +=10;
   
     //Generate a random number
 
@@ -416,27 +415,24 @@ public void moveSprites(){
 }
 
 //Method to check if there is a collision between Sprites on the Screen
-public boolean checkCollision(GridLocation loc, GridLocation nextLoc){
+public boolean isCollision(GridLocation loc, GridLocation nextLoc){
    
-     count1 = 0;
-     count2 = 0;
+    //  count1 = 0;
+    //  count2 = 0;
 
-   if (player1.getTop() > Star.getBottom()){
-    if (player1.getBottom() < Star.getTop()) {
+   if (player1.getTop() > star.getBottom()){
+    if (player1.getBottom() < star.getTop()) {
       if (player1.getRight() > star.getLeft()){
-        if (player1.getLeft() > Star.getRight()){
+        if (player1.getLeft() > star.getRight()){
         
-            checkCollision = true; 
-            count1 =+ 1;
+            // checkCollision = true; 
+            // count1 =+ 1;
+            return true;
 
         }
       }
     }
    }
-
-
-
-
 
   return false; //<--default return
 }
