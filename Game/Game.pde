@@ -172,6 +172,7 @@ void draw() {
     moveSprites();
   }
   msElapsed +=100;
+  msSprites += 10;
   currentScreen.pause(50);
 
   //check for end of game
@@ -357,23 +358,31 @@ public void populateSprites(){
   alien3.show();
 
 
-  if (msElapsed % 1000 == 0) {
+  if (msElapsed % 100 == 0) {
     System.out.println("sprites are being shown");
 
     //sprite handling
 
-    level1World.addSprite(alien1.copyTo(1424, randoY+100));
+    //level1World.addSprite(alien1.copyTo(1424, randoY+100));
 
     for(int i = 0; i < level1World.getSprites().size(); i++){
+
       level1World.getSprites().get(i).move(-10, 0);
     }
+
+    if(msSprites % 1000 == 0) {
+    level1World.addSprite(alien1.copyTo(1424, randoY+100));
+
     level1World.addSprite(alien2.copyTo(1424, randoY+200));
+  }
+    //level1World.addSprite(alien2.copyTo(1424, randoY+200));
     //level1World.addSprite(alien1.copyTo(1424, randoY+100));
 
     alien1.show();
     alien2.show();
     
   }
+
   // msSprites +=10;
   
     //Generate a random number
