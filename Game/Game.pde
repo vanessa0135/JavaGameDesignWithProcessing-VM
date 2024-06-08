@@ -125,16 +125,17 @@ void setup() {
   player2.move(50, 400/2);
 
   alien1 = new Sprite("images/Alien1.png", 0.6);
-  alien1.move(1424,100); //function to have alien Sprite start at interesting location
+  //alien1.move(1424,100); //function to have alien Sprite start at interesting location
   alien2 = new Sprite("images/Alien2.png", 0.6);
-  alien2.move(1424, 200);
+  //alien2.move(1424, 200);
   alien3 = new Sprite("images/Alien3.png", 0.6);
-  star = new Sprite("images/Star.png", 0.3);
+  
+  star = new Sprite("images/Star.png", 0.15);
   star.move(1424,100);
 
 
-  walkingChick = new AnimatedSprite("sprites/chick_walk.png", "sprites/chick_walk.json", 0.0, 0.0, 5.0);
-  level1World.addSpriteCopyTo(walkingChick, 100, 200);  //example Sprite added to a World at a location, with a speed
+  // walkingChick = new AnimatedSprite("sprites/chick_walk.png", "sprites/chick_walk.json", 0.0, 0.0, 5.0);
+  // level1World.addSpriteCopyTo(walkingChick, 100, 200);  //example Sprite added to a World at a location, with a speed
 
   //Adding pixel-based Sprites to the world
   // mainGrid.addSpriteCopyTo(exampleSprite);
@@ -187,6 +188,7 @@ void draw() {
 
 //Known Processing method that automatically will run whenever a key is pressed
 void keyPressed(){
+  player1.setSpeed(10, 10);
 
   //check what key was pressed
   System.out.println("\nKey pressed: " + keyCode); //key gives you a character for the key pressed
@@ -232,12 +234,6 @@ void keyPressed(){
      
      player2.move(70, 0);
     }
-
-    
-
-
-    
-
 
   }
 
@@ -309,17 +305,17 @@ public void updateScreen(){
 
   //UPDATE: level1World Screen
   if(currentScreen == level1World){
-    System.out.print("1");
+    //System.out.print("1");
 
     //Display the Sprites
     player1.show();
     player2.show();
 
     //alien1.move(-10, 0);
-    alien1.show();
+    //alien1.show();
     //alien1.setSpeed(100, 100);
-    alien2.show();
-    alien3.show();
+    //alien2.show();
+    //alien3.show();
     star.move(-10, 0);
     star.show();
 
@@ -347,18 +343,18 @@ public void populateSprites(){
     //alien1.move(200, 500);
   //Loop through all the rows in the last column
   
-  float randoX = (float) Math.random()  * 10;
+  //float randoX = ((float) Math.random()  * 500) + 500;
   float randoY = (float)  Math.random()  * 630;
-  System.out.println("x: " + randoX);
+  //System.out.println("x: " + randoX);
 
   alien1.move(-10,0);
      
   //alien1.setSpeed(100, 100);
-  alien2.show();
-  alien3.show();
+  // alien2.show();
+  // alien3.show();
 
 
-  if (msElapsed % 100 == 0) {
+  if (msElapsed % 200 == 0) {
     System.out.println("sprites are being shown");
 
     //sprite handling
@@ -370,16 +366,29 @@ public void populateSprites(){
       level1World.getSprites().get(i).move(-10, 0);
     }
 
-    if(msSprites % 1000 == 0) {
-    level1World.addSprite(alien1.copyTo(1424, randoY+100));
+    if(msSprites % 1110 == 10) {
 
-    level1World.addSprite(alien2.copyTo(1424, randoY+200));
-  }
+      level1World.addSprite(alien1.copyTo(1424, randoY));
+    }
+    if(msSprites % 2000 == 0){
+
+      level1World.addSprite(alien2.copyTo(1424, randoY));
+    }
+    if(msSprites % 1520 == 20){
+
+      level1World.addSprite(alien3.copyTo(1424, randoY));
+    }
+  
+    // if((level1World.getSprites().equals(alien1) || level1World.getSprites().equals(alien2) || level1World.getSprites().equals(alien3)) && (alien1.getX() == 0 || alien2.getX() == 0 || alien3.getX() == 0 )){
+    //   level1World.remove()
+    // }
+
+
     //level1World.addSprite(alien2.copyTo(1424, randoY+200));
     //level1World.addSprite(alien1.copyTo(1424, randoY+100));
 
-    alien1.show();
-    alien2.show();
+    // alien1.show();
+    // alien2.show();
     
   }
 
@@ -395,7 +404,10 @@ public void populateSprites(){
 
 //Method to move around the enemies/sprites on the screen
 public void moveSprites(){
+  // System.out.println("p1 top " + player1.getTop());
+  // System.out.println("p1 bottom " + player1.getBottom());
 
+  
 //Loop through all of the rows & cols in the grid
 
       //Store the current GridLocation
@@ -406,16 +418,30 @@ public void moveSprites(){
 
 
         //Get image/sprite from current location
-          
+        
 
         //CASE 1: Collision with player1
-
+        
 
         //CASE 2: Move enemy over to new location
 
 
         //Erase image/sprite from old location
+        for(int i = 0; i < level1World.getSprites().size(); i++){
 
+          Sprite sprite = level1World.getSprites().get(i);
+
+        if(isCollision(player1, sprite) || isCollision(player2, sprite)){
+          
+          level1World.removeSprite(sprite);
+         }
+
+         if(sprite.getRight() < 0){
+          
+          level1World.removeSprite(sprite);
+         }
+
+        }
         //System.out.println(loc + " " + grid.hasTileImage(loc));
 
           
@@ -424,15 +450,15 @@ public void moveSprites(){
 }
 
 //Method to check if there is a collision between Sprites on the Screen
-public boolean isCollision(GridLocation loc, GridLocation nextLoc){
+public boolean isCollision(Sprite sp1, Sprite sp2){
    
     //  count1 = 0;
     //  count2 = 0;
 
-   if (player1.getTop() > star.getBottom()){
-    if (player1.getBottom() < star.getTop()) {
-      if (player1.getRight() > star.getLeft()){
-        if (player1.getLeft() > star.getRight()){
+   if (sp1.getTop() < sp2.getBottom()){
+    if (sp1.getBottom() > sp2.getTop()) {
+      if (sp1.getRight() > sp2.getLeft()){
+        if (sp1.getLeft() < sp2.getRight()){
         
             // checkCollision = true; 
             // count1 =+ 1;
@@ -445,6 +471,7 @@ public boolean isCollision(GridLocation loc, GridLocation nextLoc){
 
   return false; //<--default return
 }
+
 
 //method to indicate when the main game is over
 public boolean isGameOver(){
