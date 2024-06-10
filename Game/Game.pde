@@ -61,7 +61,6 @@ int starRow = 2;
 int starCol = 3;
 
 AnimatedSprite walkingChick;
-Button b1 = new Button("rect", 650, 525, 100, 50, "GoToLevel2");
 
 //VARIABLES: Level2World Pixel-based Screen
 
@@ -80,6 +79,9 @@ private int msElapsed = 0;
 //variables for pop sprite methods
 int alienCount = 0;
 int msSprites = 0;
+
+//game elements
+//int timerCount = 0;
 
 //------------------ REQUIRED PROCESSING METHODS --------------------//
 
@@ -132,6 +134,7 @@ void setup() {
   
   star = new Sprite("images/Star.png", 0.15);
   star.move(1424,100);
+//Button b1 = new Button("rect", 650, 25, 100, 30, "TIME: " + currentScreen.getScreenTime()/1000);
 
 
   // walkingChick = new AnimatedSprite("sprites/chick_walk.png", "sprites/chick_walk.json", 0.0, 0.0, 5.0);
@@ -172,6 +175,7 @@ void draw() {
     //}
     moveSprites();
   }
+
   msElapsed +=100;
   msSprites += 10;
   currentScreen.pause(50);
@@ -323,10 +327,12 @@ public void updateScreen(){
     level1World.showWorldSprites();
 
     //move to next level based on a button click
-    b1.show();
-    if(b1.isClicked()){
-      System.out.println("\nButton Clicked");
-    }
+    //b1.show();
+    // if(b1.isClicked()){
+    //   System.out.println("\nButton Clicked");
+    // }
+    
+    
 
   }
   
@@ -427,15 +433,18 @@ public void moveSprites(){
 
 
         //Erase image/sprite from old location
+        //loop through alien array list
         for(int i = 0; i < level1World.getSprites().size(); i++){
 
           Sprite sprite = level1World.getSprites().get(i);
 
         if(isCollision(player1, sprite) || isCollision(player2, sprite)){
-          
-          level1World.removeSprite(sprite);
+          //removes alien when player collides
+          //level1World.removeSprite(sprite);
          }
+         
 
+        //deletes array when off screen
          if(sprite.getRight() < 0){
           
           level1World.removeSprite(sprite);

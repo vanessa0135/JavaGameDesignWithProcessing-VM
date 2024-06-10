@@ -31,9 +31,9 @@ public class Button {
         this.shapeY = y + (shapeH/2);
         
         this.caption = txt;
-        this.baseColor = color(255,255, 0);   //yellow
-        this.highlightColor = color(0,0,255); //blue
-        this.clickColor = color(255,0,0); //red
+        this.baseColor = color(255, 255, 255);   //yellow
+        //this.highlightColor = color(0,0,255); //blue
+        //this.clickColor = color(255,0,0); //red
         this.currentColor = baseColor;
         this.visible = true;
     }
@@ -45,17 +45,18 @@ public class Button {
     void show() {
         
         //Sets outline stroke around button (3 pixels, BLACK)
-        strokeWeight(3);
+        strokeWeight(2);
         stroke(0);
 
         //Sets color of button based on Mouse hover
-        if (isClicked()) {
-            currentColor = clickColor;
-        } else if (isMouseOverButton()){
-            currentColor = highlightColor;
-        } else {
-            currentColor = baseColor;
-        }
+        // if (isClicked()) {
+        //     currentColor = clickColor;
+        // } else if (isMouseOverButton()){
+        //     currentColor = highlightColor;
+        // } 
+        // else {
+        //     currentColor = baseColor;
+        // }
 
         //Set color inside Button
         fill(currentColor);
@@ -76,7 +77,7 @@ public class Button {
 
         //Set Text inside Button
         fill(0); //set font color to black
-        float fontSize = shapeH/2 * 0.33;
+        float fontSize = shapeH/2 * 0.9;
         textSize(fontSize);
         float tw = textWidth(caption);
         float tx = shapeX - (tw/2);
