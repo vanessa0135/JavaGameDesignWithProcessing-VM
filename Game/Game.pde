@@ -10,12 +10,16 @@
 //Title Bar
 String titleText = "Stellar Sprint";
 String extraText = "Who's Turn?";
-String counter = "Counter P1 =  ";
-String counter2 = "Counter P2 =  ";
+String p1 = "Counter P1 =  ";
+String p2= "Counter P2 =  ";
 
-//VARIABLES: Whole Game
+//VARIABLES: Whole Gaalien1.move(-10,0);
 AnimatedSprite runningHorse;
 boolean doAnimation;
+
+//variables for star counters 
+int count1 = 0;
+int count2 = 0;
 
 //VARIABLES: Splash Screen
 Screen splashScreen;
@@ -200,16 +204,16 @@ void keyPressed(){
 
     //set [W] key to move the player1 up & avoid Out-of-Bounds errors
     if(keyCode == 87){
-      player1.move(0,-20);
+      player1.move(0,-50);
     }
      if(keyCode == 65){
-      player1.move(-20,0);
+      player1.move(-50,0);
     }
      if(keyCode == 68){
-      player1.move(20,0);
+      player1.move(50,0);
     }
      if(keyCode == 83){
-      player1.move(0,20);
+      player1.move(0,50);
     }
 
    //move by arrows 
@@ -222,17 +226,17 @@ void keyPressed(){
     if(keyCode == 37){
     
     
-     player2.move(-70,0);
+     player2.move(-50,0);
     }
     if(keyCode == 40){
     
       
-     player2.move(0, 70);
+     player2.move(0, 50);
     }
     if(keyCode == 39){
     
      
-     player2.move(70, 0);
+     player2.move(50, 0);
     }
 
   }
@@ -281,11 +285,16 @@ public void updateTitleBar(){
     surface.setTitle(titleText + "    " + extraText + " " + health);
 
     //adjust the extra text as desired
-    // if (isCollision()){
-    //   surface.setTitle(counter + count1 );
-    // }
+   if (isCollision(player1, star)){
+    surface.setTitle(p1+ count1);
+   }
+     
   }
-}
+  if (isCollision(player2, star)){
+    surface.setTitle(p2+ count2);
+   }
+     
+  }
 
 
 //method to update what is drawn on the screen each frame
@@ -348,6 +357,8 @@ public void populateSprites(){
   //System.out.println("x: " + randoX);
 
   alien1.move(-10,0);
+  float randoX = (float)  Math.random()  * 500;
+  star.move(-10,0);
      
   //alien1.setSpeed(100, 100);
   // alien2.show();
@@ -378,6 +389,11 @@ public void populateSprites(){
 
       level1World.addSprite(alien3.copyTo(1424, randoY));
     }
+     if(msSprites % 1520 == 20){
+
+      level1World.addSprite(star.copyTo(1424, randoX));
+    }
+
   
     // if((level1World.getSprites().equals(alien1) || level1World.getSprites().equals(alien2) || level1World.getSprites().equals(alien3)) && (alien1.getX() == 0 || alien2.getX() == 0 || alien3.getX() == 0 )){
     //   level1World.remove()
@@ -431,9 +447,17 @@ public void moveSprites(){
 
           Sprite sprite = level1World.getSprites().get(i);
 
-        if(isCollision(player1, sprite) || isCollision(player2, sprite)){
+        if(isCollision(player1, sprite)) {
+
+        
           
           level1World.removeSprite(sprite);
+             count1 += 1;
+         }
+         if (isCollision(player2, sprite)){
+
+           level1World.removeSprite(sprite);
+           count2 += 1; 
          }
 
          if(sprite.getRight() < 0){
@@ -452,23 +476,33 @@ public void moveSprites(){
 //Method to check if there is a collision between Sprites on the Screen
 public boolean isCollision(Sprite sp1, Sprite sp2){
    
-    //  count1 = 0;
-    //  count2 = 0;
-
+    
    if (sp1.getTop() < sp2.getBottom()){
     if (sp1.getBottom() > sp2.getTop()) {
       if (sp1.getRight() > sp2.getLeft()){
         if (sp1.getLeft() < sp2.getRight()){
         
             // checkCollision = true; 
-            // count1 =+ 1;
+          
             return true;
+           
 
         }
       }
     }
    }
+    if (sp2.getTop() < sp1.getBottom()){
+    if (sp2.getBottom() > sp1.getTop()) {
+      if (sp2.getRight() > sp1.getLeft()){
+        if (sp2.getLeft() < sp1.getRight()){
+        
+         return true;
+         
+        }
+      }
 
+   }
+    }
   return false; //<--default return
 }
 
