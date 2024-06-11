@@ -432,7 +432,7 @@ public void moveSprites(){
       if(isCollision(player1, sprite)){
 
         //check if the collision was with a star
-        if(sprite.getName().equals(star.getName())){
+        if(sprite.equals(star)){
           System.out.println("Star ran into player 1");
         }
         //erase sprite after collision
