@@ -65,7 +65,7 @@ int starRow = 2;
 int starCol = 3;
 
 AnimatedSprite walkingChick;
-
+Button b1;
 
 //VARIABLES: EndScreen
 World endScreen;
@@ -137,7 +137,7 @@ void setup() {
   
   star = new Sprite("images/Star.png", 0.15);
   star.move(1424,100);
-  //Button b1 = new Button("rect", 650, 25, 100, 30, "TIME: " + currentScreen.getScreenTime()/1000);
+  b1 = new Button("rect", 650, 25, 150, 30, "TIME: " + currentScreen.getScreenTime()/1000);
 
   // walkingChick = new AnimatedSprite("sprites/chick_walk.png", "sprites/chick_walk.json", 0.0, 0.0, 5.0);
   // level1World.addSpriteCopyTo(walkingChick, 100, 200);  //example Sprite added to a World at a location, with a speed
@@ -145,6 +145,9 @@ void setup() {
   //Adding pixel-based Sprites to the world
   // mainGrid.addSpriteCopyTo(exampleSprite);
   level1World.printWorldSprites();
+  b1.setButtonColor(color(255,255,255));
+  b1.setHoverColor(null);
+  b1.setClickColor(null);
   System.out.println("Done loading Level 1 ...");
   
   //SETUP: Sound
@@ -304,9 +307,17 @@ public void updateScreen(){
   }
 
   //UPDATE: splashScreen
-  if(currentScreen == splashScreen && splashScreen.getScreenTime() > 3000 && splashScreen.getScreenTime() < 5000){
-    System.out.print("s");
-    currentScreen = level1World;
+  if(currentScreen == splashScreen){
+    System.out.print("s");   
+    
+    //if(splashScreen.getScreenTime() > 3000 && splashScreen.getScreenTime() < 5000){
+      
+    //move to next level based on a button click
+    b1.show();
+    if(b1.isClicked()){
+      currentScreen = level1World;
+      System.out.println("\nButton Clicked");
+    }
 
   }
 
@@ -329,11 +340,7 @@ public void updateScreen(){
     //update other screen elements
     level1World.showWorldSprites();
 
-    //move to next level based on a button click
-    //b1.show();
-    // if(b1.isClicked()){
-    //   System.out.println("\nButton Clicked");
-    // }
+
     
     
 
