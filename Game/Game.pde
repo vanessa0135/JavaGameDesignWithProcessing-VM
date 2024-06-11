@@ -66,7 +66,6 @@ int starCol = 3;
 
 AnimatedSprite walkingChick;
 
-//VARIABLES: Level2World Pixel-based Screen
 
 //VARIABLES: EndScreen
 World endScreen;
@@ -138,8 +137,7 @@ void setup() {
   
   star = new Sprite("images/Star.png", 0.15);
   star.move(1424,100);
-//Button b1 = new Button("rect", 650, 25, 100, 30, "TIME: " + currentScreen.getScreenTime()/1000);
-
+  //Button b1 = new Button("rect", 650, 25, 100, 30, "TIME: " + currentScreen.getScreenTime()/1000);
 
   // walkingChick = new AnimatedSprite("sprites/chick_walk.png", "sprites/chick_walk.json", 0.0, 0.0, 5.0);
   // level1World.addSpriteCopyTo(walkingChick, 100, 200);  //example Sprite added to a World at a location, with a speed
@@ -161,7 +159,6 @@ void setup() {
 
 //Required Processing method that automatically loops
 //(Anything drawn on the screen should be called from here)
-
 void draw() {
 
 
@@ -220,26 +217,23 @@ void keyPressed(){
       player1.move(0,50);
     }
 
-   //move by arrows 
-  if(keyCode == 38){
-    
-   
-     player2.move(0, -50);
+    if (isCollision(player1, star)){
+      count1++;
+      System.out.println("P1 ran into a star");
     }
 
+
+   //move by arrows 
+    if(keyCode == 38){
+     player2.move(0, -50);
+    }
     if(keyCode == 37){
-    
-    
      player2.move(-50,0);
     }
     if(keyCode == 40){
-    
-      
      player2.move(0, 50);
     }
     if(keyCode == 39){
-    
-     
      player2.move(50, 0);
     }
 
@@ -269,8 +263,8 @@ void mouseClicked(){
 
 
   //Toggle the animation on & off
-  doAnimation = !doAnimation;
-  System.out.println("doAnimation: " + doAnimation);
+  // doAnimation = !doAnimation;
+  // System.out.println("doAnimation: " + doAnimation);
   if(currentGrid != null){
     currentGrid.setMark("X",currentGrid.getGridLocation());
   }
@@ -362,9 +356,9 @@ public void populateSprites(){
   float randoY = (float)  Math.random()  * 630;
   //System.out.println("x: " + randoX);
 
-  alien1.move(-10,0);
+  alien1.move(-10,0);  //<-- this is the original alien who is not a part of the arrayList
   float randoX = (float)  Math.random()  * 500;
-  star.move(-10,0);
+  star.move(-10,0);  //<-- this is the original star who is not a part of the arrayList
      
   //alien1.setSpeed(100, 100);
   // alien2.show();
@@ -372,7 +366,7 @@ public void populateSprites(){
 
 
   if (msElapsed % 200 == 0) {
-    System.out.println("sprites are being shown");
+    //System.out.println("sprites are being shown");
 
     //sprite handling
 
@@ -429,81 +423,56 @@ public void moveSprites(){
   // System.out.println("p1 top " + player1.getTop());
   // System.out.println("p1 bottom " + player1.getBottom());
 
-  
-//Loop through all of the rows & cols in the grid
+    //loop through alien array list
+    for(int i = 0; i < level1World.getSprites().size(); i++){
 
-      //Store the current GridLocation
+      Sprite sprite = level1World.getSprites().get(i);
 
-      //Store the next GridLocation
+      //check for collisions with player1
+      if(isCollision(player1, sprite)){
 
-      //Check if the current tile has an image that is not player1      
-
-
-        //Get image/sprite from current location
-        
-
-        //CASE 1: Collision with player1
-        
-
-        //CASE 2: Move enemy over to new location
-
-
-        //Erase image/sprite from old location
-        //loop through alien array list
-        for(int i = 0; i < level1World.getSprites().size(); i++){
-
-          Sprite sprite = level1World.getSprites().get(i);
-
-        if(isCollision(player1, sprite) || isCollision(player2, sprite)){
-          
-          level1World.removeSprite(sprite);
-         }
-         
-
-        //deletes array when off screen
-         if(sprite.getRight() < 0){
-          
-          level1World.removeSprite(sprite);
-         }
-
+        //check if the collision was with a star
+        if(sprite.getName().equals(star.getName())){
+          System.out.println("Star ran into player 1");
         }
-        //System.out.println(loc + " " + grid.hasTileImage(loc));
+        //erase sprite after collision
+        level1World.removeSprite(sprite);
+      }
+      
 
-          
-      //CASE 3: Enemy leaves screen at first column
+
+      
+      //deletes array when off screen
+      if(sprite.getRight() < 0){
+        level1World.removeSprite(sprite);
+      }
+    }
 
 }
 
 //Method to check if there is a collision between Sprites on the Screen
 public boolean isCollision(Sprite sp1, Sprite sp2){
    
-    
    if (sp1.getTop() < sp2.getBottom()){
     if (sp1.getBottom() > sp2.getTop()) {
       if (sp1.getRight() > sp2.getLeft()){
         if (sp1.getLeft() < sp2.getRight()){
-        
-            // checkCollision = true; 
-          
             return true;
-           
-
         }
       }
     }
    }
-    if (sp2.getTop() < sp1.getBottom()){
-    if (sp2.getBottom() > sp1.getTop()) {
-      if (sp2.getRight() > sp1.getLeft()){
-        if (sp2.getLeft() < sp1.getRight()){
+  //   if (sp2.getTop() < sp1.getBottom()){
+  //   if (sp2.getBottom() > sp1.getTop()) {
+  //     if (sp2.getRight() > sp1.getLeft()){
+  //       if (sp2.getLeft() < sp1.getRight()){
         
-         return true;
+  //        return true;
          
-        }
-      }
-
-   }
-    }
+  //       }
+  //     }
+  //   }
+  // }
   return false; //<--default return
 }
 

@@ -2,10 +2,8 @@
  * Inspired by Daniel Shiffman's p5js Animated Sprite tutorial
  * Note: Picture coordinate origina at top, left corner
  * Author: Joel Bianchi
- * Last Edit: 5/28/2024
- * Added Sprite constructor with scaling
- * Updated for null images (ie. Buttons)
- * getX() & getY() center Sprites
+ * Last Edit: 6/10/24
+ * Added getName() method for easier tracking of categories of sprites
  */
 
 public class Sprite {
@@ -178,6 +176,9 @@ public class Sprite {
   //Accessor method to the image path of the Sprite
   public String getImagePath(){
     return this.spriteImgFile;
+  }
+  public String getName(){
+    return getImagePath();
   }
   
   //Accessor method to the image path of the Sprite
