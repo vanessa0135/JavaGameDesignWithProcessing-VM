@@ -32,7 +32,7 @@ int player1Row = 3;
 int player1Col = 0;
 int health = 3;
 AnimatedSprite walkingChick;
-Button b1 = new Button("rect", 650, 525, 100, 50, "GoToLevel2");
+Button b1 = new Button("rect", 625, 525, 150, 50, "GoToLevel2");
 
 //VARIABLES: Level2World Pixel-based Screen
 World level2World;
@@ -96,6 +96,9 @@ void setup() {
   player1.resize(level1Grid.getTileWidth(),level1Grid.getTileHeight());
   walkingChick = new AnimatedSprite("sprites/chick_walk.png", "sprites/chick_walk.json", 0.0, 0.0, 5.0);
   level1Grid.setTileSprite(new GridLocation (5,5), walkingChick);
+  b1.setButtonColor(color(255,255,255));
+  b1.setHoverColor(color(125,125,0));
+  b1.setClickColor(color(255,0,0));
   System.out.println("Done loading Level 1 ...");
   
   //SETUP: Level 2
