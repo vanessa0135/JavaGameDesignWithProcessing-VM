@@ -130,6 +130,7 @@ void setup() {
   player2 = new Sprite("images/Astro2.png", 0.7);
   player1.move(50, 800/2);
   player2.move(50, 400/2);
+  
 
   alien1 = new Sprite("images/Alien1.png", 0.6);
   //alien1.move(1424,100); //function to have alien Sprite start at interesting location
@@ -138,7 +139,7 @@ void setup() {
   alien3 = new Sprite("images/Alien3.png", 0.6);
   
   star = new Sprite("images/Star.png", 0.15);
-  //star.move(1424,100);
+  
 //Button b1 = new Button("rect", 650, 25, 100, 30, "TIME: " + currentScreen.getScreenTime()/1000);
 
 
@@ -337,7 +338,7 @@ public void updateScreen(){
     //alien1.setSpeed(100, 100);
     //alien2.show();
     //alien3.show();
-    star.move(-10, 0);
+    //star.move(-10, 0);
     star.show();
 
     //update other screen elements
@@ -355,13 +356,15 @@ public void updateScreen(){
       fill(255, 255, 255);
     } else{
       st = "";
-    }
+    } 
+
     String st2 = "TIME: ";
     if(currentScreen.getScreenTime()/1000 >= 8 && (68 - currentScreen.getScreenTime()/1000) > 0){
     textSize(50);
     text(st2 + (68 - currentScreen.getScreenTime()/1000) , 20, 50);
     fill(255, 255, 255);
     //timerCount -= 100;
+
     } else{
       st2 = "TIME: 0";
       //endGame();
@@ -389,7 +392,7 @@ public void populateSprites(){
   //System.out.println("x: " + randoX);
 
   alien1.move(-10,0);  //<-- this is the original alien who is not a part of the arrayList
-  star.move(-10,0);  //<-- this is the original star who is not a part of the arrayList
+  //star.move(-10,0);  //<-- this is the original star who is not a part of the arrayList
      
   //alien1.setSpeed(100, 100);
   // alien2.show();
@@ -437,20 +440,26 @@ if(currentScreen.getScreenTime()/1000 >= 8){
   // msSprites +=10;
   
     //Generate a random number
+  
 
-  if(!isCollision(player1,star)|| !isCollision(player2, star)){
-      star.moveTo(randoX, randoY);
-  }
+ 
+    if((count1 >= 1) || (count2 >= 1)) {
+      level1World.removeSprite(star);
+      
+    } else {
+      star.moveTo(500, 500);
+    }
+  
    if(isCollision(player1, star) || isCollision(player2, star)){
       level1World.removeSprite(star);
       star.moveTo(randoX, randoY);
       level1World.showWorldSprites();
   }
-    } else{
-      for(int i = 0; i < level1World.getSprites().size(); i++){
+  //   } else{
+  //     for(int i = 0; i < level1World.getSprites().size(); i++){
 
-      level1World.getSprites().get(i).move(10, 10);
-    }
+  //     level1World.getSprites().get(i).move(10, 10);
+  //   }
       //level1World.getSprites().get(i).move(0, 0);
   }
     //10% of the time, decide to add an enemy image to a Tile
@@ -479,13 +488,14 @@ public void moveSprites(){
           level1World.removeSprite(sprite);
            
         }
+        if(sprite.getRight() < 0){
+          
+          level1World.removeSprite(sprite);
+          }
          }
 
         //deletes array when off screen
-         if(sprite.getRight() < 0){
-          
-          level1World.removeSprite(sprite);
-         }
+         
 
         }
         //System.out.println(loc + " " + grid.hasTileImage(loc));
