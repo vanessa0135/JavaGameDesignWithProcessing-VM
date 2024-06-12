@@ -68,9 +68,9 @@ AnimatedSprite walkingChick;
 Button b1;
 
 //VARIABLES: EndScreen
-World endScreen;
+Screen endScreen;
 PImage endBg;
-String endBgFile = "images/youwin.png";
+String endBgFile = "images/spaceShip.jpg";
 
 
 //VARIABLES: Tracking the current Screen being displayed
@@ -118,7 +118,7 @@ void setup() {
   level1World = new World("Space", level1Bg);
   //level2World = new World("sky", level2BgFile, 8.0, 0, 0); //moveable World constructor --> defines center & scale (x, scale, y)???
 
-  endScreen = new World("end", endBg);
+  endScreen = new Screen("end", endBgFile, 5.0, 1424.0, 748.0);
   currentScreen = splashScreen;
 
   //SETUP: Splash Screen
@@ -240,7 +240,12 @@ void keyPressed(){
     if(keyCode == 39){
      player2.move(50, 0);
     }
-
+    if(isCollision(player1, star)){
+    count1++;
+    }
+    if(isCollision(player2, star)){
+    count2++;
+    }
   }
 
   //CHANGING SCREENS BASED ON KEYS
@@ -284,17 +289,15 @@ public void updateTitleBar(){
 
   if(!isGameOver()) {
     //set the title each loop
-    surface.setTitle(titleText + "    " + extraText + " " + health);
+    surface.setTitle(p1 + count1 + " " + p2 + count2);
 
     //adjust the extra text as desired
-   if (isCollision(player1, star)){
-    surface.setTitle(p1+ count1);
-   }
+   
+   
+   
      
   }
-  if (isCollision(player2, star)){
-    surface.setTitle(p2+ count2);
-   }
+   
      
   }
 
@@ -361,13 +364,13 @@ public void updateScreen(){
     //timerCount -= 100;
     } else{
       st2 = "TIME: 0";
+      //endGame();
     }
+    
   }
     
 
-  }
-  
-  //UPDATE: End Screen
+  }//UPDATE: End Screen
 
 
 
@@ -386,7 +389,6 @@ public void populateSprites(){
   //System.out.println("x: " + randoX);
 
   alien1.move(-10,0);  //<-- this is the original alien who is not a part of the arrayList
-  float randoX = (float)  Math.random()  * 500;
   star.move(-10,0);  //<-- this is the original star who is not a part of the arrayList
      
   //alien1.setSpeed(100, 100);
@@ -410,11 +412,11 @@ if(currentScreen.getScreenTime()/1000 >= 8){
 
       level1World.addSprite(alien1.copyTo(1424, randoY));
     }
-    if(msSprites % 2000 == 0){
+    if(msSprites % 1500 == 0){
 
       level1World.addSprite(alien2.copyTo(1424, randoY));
     }
-    if(msSprites % 1040 == 20){
+    if(msSprites % 1040 == 0){
 
       level1World.addSprite(alien3.copyTo(1424, randoY));
     }
@@ -436,14 +438,21 @@ if(currentScreen.getScreenTime()/1000 >= 8){
   
     //Generate a random number
 
-  
-      star.moveTo(1300, 50);
+  if(!isCollision(player1,star)|| !isCollision(player2, star)){
+      star.moveTo(randoX, randoY);
+  }
    if(isCollision(player1, star) || isCollision(player2, star)){
       level1World.removeSprite(star);
       star.moveTo(randoX, randoY);
       level1World.showWorldSprites();
   }
+    } else{
+      for(int i = 0; i < level1World.getSprites().size(); i++){
+
+      level1World.getSprites().get(i).move(10, 10);
     }
+      //level1World.getSprites().get(i).move(0, 0);
+  }
     //10% of the time, decide to add an enemy image to a Tile
     
 
@@ -459,13 +468,18 @@ public void moveSprites(){
 
       Sprite sprite = level1World.getSprites().get(i);
 
-        if(isCollision(player1, sprite) || isCollision(player2, sprite)){
-          if(sprite.equals(star)){
-          System.out.println("Star ran into player 1");
-        }
+        if(isCollision(player1, sprite)){
+        
           level1World.removeSprite(sprite);
+           
+        }
+
+        if(isCollision(player2, sprite)){
+        
+          level1World.removeSprite(sprite);
+           
+        }
          }
-         
 
         //deletes array when off screen
          if(sprite.getRight() < 0){
@@ -479,7 +493,7 @@ public void moveSprites(){
           
       //CASE 3: Enemy leaves screen at first column
 
-}
+
 
 //Method to check if there is a collision between Sprites on the Screen
 public boolean isCollision(Sprite sp1, Sprite sp2){
