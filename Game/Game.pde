@@ -122,8 +122,8 @@ void setup() {
   currentScreen = splashScreen;
 
   //SETUP: Splash Screen
-  runningHorse = new AnimatedSprite("sprites/horse_run.png", "sprites/horse_run.json", 50.0, 75.0, 10.0);
-  runningHorse.animateHorizontal(5.0, 10.0, true);
+  //runningHorse = new AnimatedSprite("sprites/horse_run.png", "sprites/horse_run.json", 50.0, 75.0, 10.0);
+  //runningHorse.animateHorizontal(5.0, 10.0, true);
 
   //SETUP: Level 1 Screen
   player1 = new Sprite("images/Astro.png", 0.7);
@@ -155,7 +155,7 @@ void setup() {
   // song = new SoundFile(this, "sounds/Lenny_Kravitz_Fly_Away.mp3");
   // song.play();
   
-  println("Game started...");
+  //println("Game started...");
 
 } //end setup()
 
@@ -221,10 +221,10 @@ void keyPressed(){
       player1.move(0,50);
     }
 
-    if (isCollision(player1, star)){
-      count1++;
-      System.out.println("P1 ran into a star");
-    }
+    // if (isCollision(player1, star)){
+    //   count1++;
+    //   System.out.println("P1 ran into a star");
+    // }
 
 
    //move by arrows 
@@ -308,17 +308,16 @@ public void updateScreen(){
   }
 
   //UPDATE: splashScreen
-  if(currentScreen == splashScreen){
-    System.out.print("s");   
-    
-    //if(splashScreen.getScreenTime() > 3000 && splashScreen.getScreenTime() < 5000){
+  if(currentScreen == splashScreen && splashScreen.getScreenTime() > 3000 && splashScreen.getScreenTime() < 5000){
+    System.out.print("s");
+    currentScreen = level1World;
       
     //move to next level based on a button click
-    b1.show();
-    if(b1.isClicked()){
-      currentScreen = level1World;
-      System.out.println("\nButton Clicked");
-    }
+    // b1.show();
+    // if(b1.isClicked()){
+    //   currentScreen = level1World;
+    //   System.out.println("\nButton Clicked");
+    // }
 
   }
 
@@ -371,7 +370,7 @@ public void updateScreen(){
   //UPDATE: End Screen
 
 
-}
+
 
 //Method to populate enemies or other sprites on the screen
 public void populateSprites(){
