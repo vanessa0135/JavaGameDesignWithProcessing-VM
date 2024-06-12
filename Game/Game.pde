@@ -85,7 +85,9 @@ int alienCount = 0;
 int msSprites = 0;
 
 //game elements
-//int timerCount = 0;
+//int timerCount = 60;
+float randoY; 
+float randoX; 
 
 //------------------ REQUIRED PROCESSING METHODS --------------------//
 
@@ -137,7 +139,7 @@ void setup() {
   alien3 = new Sprite("images/Alien3.png", 0.6);
   
   star = new Sprite("images/Star.png", 0.15);
-  star.move(1424,100);
+  //star.move(1424,100);
 //Button b1 = new Button("rect", 650, 25, 100, 30, "TIME: " + currentScreen.getScreenTime()/1000);
 
 
@@ -146,7 +148,7 @@ void setup() {
 
   //Adding pixel-based Sprites to the world
   // mainGrid.addSpriteCopyTo(exampleSprite);
-  level1World.printWorldSprites();
+  //level1World.printWorldSprites();
   System.out.println("Done loading Level 1 ...");
   
   //SETUP: Sound
@@ -163,10 +165,11 @@ void setup() {
 //(Anything drawn on the screen should be called from here)
 
 void draw() {
-
+  
 
   updateTitleBar();
   updateScreen();
+  
   populateSprites();
  
 
@@ -303,7 +306,7 @@ public void updateTitleBar(){
 
 //method to update what is drawn on the screen each frame
 public void updateScreen(){
-
+    
   //UPDATE: Background of the current Screen
   if(currentScreen.getBg() != null){
     background(currentScreen.getBg());
@@ -340,9 +343,23 @@ public void updateScreen(){
     // if(b1.isClicked()){
     //   System.out.println("\nButton Clicked");
     // }
-    
-    
-
+    String st = "GAME BEGINS IN: ";
+    if(currentScreen.getScreenTime()/1000 < 8){
+      textSize(50);
+      text(st + (8 - currentScreen.getScreenTime()/1000), 1050/2, 748/2);
+      fill(255, 255, 255);
+    } else{
+      st = "";
+    }
+    String st2 = "TIME: ";
+    if(currentScreen.getScreenTime()/1000 >= 8 && (68 - currentScreen.getScreenTime()/1000) > 0){
+    textSize(50);
+    text(st2 + (68 - currentScreen.getScreenTime()/1000) , 20, 50);
+    fill(255, 255, 255);
+    //timerCount -= 100;
+    } else{
+      st2 = "TIME: 0";
+    }
   }
   
   //UPDATE: End Screen
@@ -359,7 +376,8 @@ public void populateSprites(){
   //Loop through all the rows in the last column
   
   //float randoX = ((float) Math.random()  * 500) + 500;
-  float randoY = (float)  Math.random()  * 630;
+  randoY = (float)  Math.random()  * 630;
+  randoX = (float)  Math.random()  * 1420;
   //System.out.println("x: " + randoX);
 
   alien1.move(-10,0);
@@ -369,7 +387,7 @@ public void populateSprites(){
   //alien1.setSpeed(100, 100);
   // alien2.show();
   // alien3.show();
-
+if(currentScreen.getScreenTime()/1000 >= 8){
 
   if (msElapsed % 200 == 0) {
     System.out.println("sprites are being shown");
@@ -383,7 +401,7 @@ public void populateSprites(){
       level1World.getSprites().get(i).move(-10, 0);
     }
 
-    if(msSprites % 1110 == 10) {
+    if(msSprites % 950 == 50) {
 
       level1World.addSprite(alien1.copyTo(1424, randoY));
     }
@@ -391,21 +409,16 @@ public void populateSprites(){
 
       level1World.addSprite(alien2.copyTo(1424, randoY));
     }
-    if(msSprites % 1520 == 20){
+    if(msSprites % 1040 == 20){
 
       level1World.addSprite(alien3.copyTo(1424, randoY));
     }
-     if(msSprites % 1520 == 20){
-
-      level1World.addSprite(star.copyTo(1424, randoX));
-    }
-
   
     // if((level1World.getSprites().equals(alien1) || level1World.getSprites().equals(alien2) || level1World.getSprites().equals(alien3)) && (alien1.getX() == 0 || alien2.getX() == 0 || alien3.getX() == 0 )){
     //   level1World.remove()
     // }
 
-
+  
     //level1World.addSprite(alien2.copyTo(1424, randoY+200));
     //level1World.addSprite(alien1.copyTo(1424, randoY+100));
 
@@ -418,7 +431,14 @@ public void populateSprites(){
   
     //Generate a random number
 
-
+  
+      star.moveTo(1300, 50);
+   if(isCollision(player1, star) || isCollision(player2, star)){
+      level1World.removeSprite(star);
+      star.moveTo(randoX, randoY);
+      level1World.showWorldSprites();
+  }
+    }
     //10% of the time, decide to add an enemy image to a Tile
     
 
@@ -467,6 +487,7 @@ public void moveSprites(){
          }
 
         }
+        
         //System.out.println(loc + " " + grid.hasTileImage(loc));
 
           
