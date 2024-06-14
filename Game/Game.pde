@@ -10,16 +10,22 @@
 //Title Bar
 String titleText = "Stellar Sprint";
 String extraText = "Who's Turn?";
-String p1 = "Counter P1 =  ";
-String p2= "Counter P2 =  ";
+String p1 = "STARS P1 =  ";
+String p2= "STARS P2 =  ";
 
 //VARIABLES: Whole Gaalien1.move(-10,0);
-AnimatedSprite runningHorse;
-boolean doAnimation;
+// AnimatedSprite runningHorse;
+// boolean doAnimation;
 
 //variables for star counters 
-int count1 = 0;
-int count2 = 0;
+int starCount1 = 0;
+int starCount2 = 0;
+//variables for alien count
+int alienCount1 = 0;
+int alienCount2 = 0;
+//total score
+int score1 = 0;
+int score2 = 0;
 
 //VARIABLES: Splash Screen
 Screen splashScreen;
@@ -68,7 +74,7 @@ AnimatedSprite walkingChick;
 Button b1;
 
 //VARIABLES: EndScreen
-Screen endScreen;
+World endWorld;
 PImage endBg;
 String endBgFile = "images/spaceShip.jpg";
 
@@ -79,8 +85,6 @@ World currentWorld;
 Grid currentGrid;
 private int msElapsed = 0;
 
-//variables for pop sprite methods
-int alienCount = 0;
 int msSprites = 0;
 
 //game elements
@@ -88,6 +92,7 @@ int msSprites = 0;
 float randoY; 
 float randoX; 
 
+String st2 = "TIME: ";
 //------------------ REQUIRED PROCESSING METHODS --------------------//
 
 //Required Processing method that gets run once
@@ -118,7 +123,8 @@ void setup() {
   level1World = new World("Space", level1Bg);
   //level2World = new World("sky", level2BgFile, 8.0, 0, 0); //moveable World constructor --> defines center & scale (x, scale, y)???
 
-  endScreen = new Screen("end", endBgFile, 5.0, 1424.0, 748.0);
+  endWorld = new World("end", endBgFile, 5.0, 1424.0, 748.0);
+
   currentScreen = splashScreen;
 
   //SETUP: Splash Screen
@@ -140,7 +146,7 @@ void setup() {
   
   star = new Sprite("images/Star.png", 0.15);
   
-//Button b1 = new Button("rect", 650, 25, 100, 30, "TIME: " + currentScreen.getScreenTime()/1000);
+  Button b1 = new Button("rect", 650, 25, 100, 30,"play again");
 
 
   // walkingChick = new AnimatedSprite("sprites/chick_walk.png", "sprites/chick_walk.json", 0.0, 0.0, 5.0);
@@ -170,15 +176,11 @@ void draw() {
   updateScreen();
   
   populateSprites();
- 
 
   //simple timing handling
   if (msElapsed % 300 == 0) {
     //sprite handling
-    //if( alienCount < 1){
     
-    //alienCount++;
-    //}
     moveSprites();
   }
 
@@ -198,7 +200,7 @@ void draw() {
 
 //Known Processing method that automatically will run whenever a key is pressed
 void keyPressed(){
-  player1.setSpeed(10, 10);
+  //player1.setSpeed(10, 10);
 
   //check what key was pressed
   System.out.println("\nKey pressed: " + keyCode); //key gives you a character for the key pressed
@@ -206,7 +208,7 @@ void keyPressed(){
   //What to do when a key is pressed?
   
   //KEYS FOR LEVEL1
-  if(currentScreen == level1World){
+  if(currentScreen == level1World || currentScreen == endWorld){
 
     //set [W] key to move the player1 up & avoid Out-of-Bounds errors
     if(keyCode == 87){
@@ -221,11 +223,6 @@ void keyPressed(){
      if(keyCode == 83){
       player1.move(0,50);
     }
-
-    // if (isCollision(player1, star)){
-    //   count1++;
-    //   System.out.println("P1 ran into a star");
-    // }
 
 
    //move by arrows 
@@ -242,10 +239,10 @@ void keyPressed(){
      player2.move(50, 0);
     }
     if(isCollision(player1, star)){
-    count1++;
+    starCount1++;
     }
     if(isCollision(player2, star)){
-    count2++;
+    starCount2++;
     }
   }
 
@@ -253,9 +250,10 @@ void keyPressed(){
   //change to level1 if 1 key pressed, level2 if 2 key is pressed
   if(key == '1'){
     currentScreen = level1World;
-  } else if(key == '2'){
-    //currentScreen = level2World;
-  }
+   } 
+  //else if(key == '2'){
+  //   currentScreen = endWorld;
+  // }
 
 }
 
@@ -290,7 +288,10 @@ public void updateTitleBar(){
 
   if(!isGameOver()) {
     //set the title each loop
-    surface.setTitle(p1 + count1 + " " + p2 + count2);
+    score1 = starCount1 - alienCount1;
+    score2 = starCount2 - alienCount2;
+
+    surface.setTitle(p1 + score1 + " " + p2 + score2);
 
     //adjust the extra text as desired
    
@@ -316,41 +317,26 @@ public void updateScreen(){
     System.out.print("s");
     currentScreen = level1World;
       
-    //move to next level based on a button click
-    // b1.show();
-    // if(b1.isClicked()){
-    //   currentScreen = level1World;
-    //   System.out.println("\nButton Clicked");
-    // }
-
   }
 
   //UPDATE: level1World Screen
   if(currentScreen == level1World){
-    //System.out.print("1");
+    System.out.print("1");
 
     //Display the Sprites
+
     player1.show();
     player2.show();
 
-    //alien1.move(-10, 0);
-    //alien1.show();
-    //alien1.setSpeed(100, 100);
-    //alien2.show();
-    //alien3.show();
-    //star.move(-10, 0);
     star.show();
 
     //update other screen elements
     level1World.showWorldSprites();
 
     //move to next level based on a button click
-    //b1.show();
-    // if(b1.isClicked()){
-    //   System.out.println("\nButton Clicked");
-    // }
+    
     String st = "GAME BEGINS IN: ";
-    if(currentScreen.getScreenTime()/1000 < 8){
+    if(currentScreen.getScreenTime()/1000 < 8 ){
       textSize(50);
       text(st + (8 - currentScreen.getScreenTime()/1000), 1050/2, 748/2);
       fill(255, 255, 255);
@@ -358,20 +344,95 @@ public void updateScreen(){
       st = "";
     } 
 
-    String st2 = "TIME: ";
-    if(currentScreen.getScreenTime()/1000 >= 8 && (68 - currentScreen.getScreenTime()/1000) > 0){
+    
+    if(currentScreen.getScreenTime()/1000 >= 8 && (currentScreen.getScreenTime()/1000) < 68){
     textSize(50);
     text(st2 + (68 - currentScreen.getScreenTime()/1000) , 20, 50);
     fill(255, 255, 255);
     //timerCount -= 100;
+    } 
 
-    } else{
-      st2 = "TIME: 0";
-      //endGame();
+    //deleting sprites before changing screens
+    if((currentScreen.getScreenTime()/1000) == 68 ){
+
+    
+    player1.moveTo(1500, 1500);
+    player2.moveTo(1500, 1500);
+    
+    for(int i = 0; i < level1World.getSprites().size(); i++){
+
+      Sprite sprite = level1World.getSprites().get(i);
+
+      level1World.removeSprite(sprite);
+
+      }
+    }
+    // changed to endScreen
+    if(currentScreen == level1World && (level1World.getScreenTime()/1000 > 68) && level1World.getScreenTime()/1000 < 71 ){
+      
+      currentScreen = endWorld;
+      
+      System.out.println("end screen is shown");
     }
     
   }
-    
+
+    //UPDATE: endWorld Screen
+    if(currentScreen == endWorld){
+
+      player1.show();
+      player2.show();
+
+      System.out.print("2");
+
+      textSize(50);
+      text("SUMMARY", 600, 200);
+      fill(255, 255, 255);
+
+      //player 1 summary
+      textSize(30);
+      text("Player 1 star collected: " + starCount1, 300, 300);
+      fill(255, 255, 255);
+
+      textSize(30);
+      text("Player 1 alien collided: " + alienCount1, 300, 400);
+      fill(255, 255, 255);
+
+      textSize(30);
+      text("Player 1 total score: " + score1, 300, 500);
+      fill(255, 255, 255);
+
+      //player 2 summary
+      textSize(30);
+      text("Player 2 star collected: " + starCount2, 800, 300);
+      fill(255, 255, 255);
+
+      textSize(30);
+      text("Player 2 alien collided: " + alienCount2, 800, 400);
+      fill(255, 255, 255);
+
+      textSize(30);
+      text("Player 2 total score: " + score2, 800, 500);
+      fill(255, 255, 255);
+
+      if(score1 > score2){
+        textSize(50);
+        text("Player 1 Won!", 600, 700);
+      } else{
+        textSize(50);
+        text("Player 2 Won!", 600, 700);
+      }
+
+       //b1.show();
+
+      // if(b1.isClicked()){
+      //   currentScreen = splashScreen;
+      //   System.out.println("\nButton Clicked");
+      // }
+    //endWorld.showWorldSprites();
+
+  
+    }
 
   }//UPDATE: End Screen
 
@@ -380,12 +441,8 @@ public void updateScreen(){
 
 //Method to populate enemies or other sprites on the screen
 public void populateSprites(){
-
-  //What is the index for the last column?
-    //int lastCol = level1Grid.getNumCols() -1;
-    //alien1.move(200, 500);
-  //Loop through all the rows in the last column
   
+  //Generate a random number
   //float randoX = ((float) Math.random()  * 500) + 500;
   randoY = (float)  Math.random()  * 630;
   randoX = (float)  Math.random()  * 1420;
@@ -394,18 +451,13 @@ public void populateSprites(){
   alien1.move(-10,0);  //<-- this is the original alien who is not a part of the arrayList
   //star.move(-10,0);  //<-- this is the original star who is not a part of the arrayList
      
-  //alien1.setSpeed(100, 100);
-  // alien2.show();
-  // alien3.show();
-if(currentScreen.getScreenTime()/1000 >= 8){
+  
+if((currentScreen.getScreenTime()/1000 >= 8) && currentScreen == level1World){
 
   if (msElapsed % 200 == 0) {
     //System.out.println("sprites are being shown");
 
     //sprite handling
-
-    //level1World.addSprite(alien1.copyTo(1424, randoY+100));
-
     for(int i = 0; i < level1World.getSprites().size(); i++){
 
       level1World.getSprites().get(i).move(-10, 0);
@@ -423,27 +475,12 @@ if(currentScreen.getScreenTime()/1000 >= 8){
 
       level1World.addSprite(alien3.copyTo(1424, randoY));
     }
-  
-    // if((level1World.getSprites().equals(alien1) || level1World.getSprites().equals(alien2) || level1World.getSprites().equals(alien3)) && (alien1.getX() == 0 || alien2.getX() == 0 || alien3.getX() == 0 )){
-    //   level1World.remove()
-    // }
 
-  
-    //level1World.addSprite(alien2.copyTo(1424, randoY+200));
-    //level1World.addSprite(alien1.copyTo(1424, randoY+100));
-
-    // alien1.show();
-    // alien2.show();
     
   }
 
-  // msSprites +=10;
-  
-    //Generate a random number
-  
-
  
-    if((count1 >= 1) || (count2 >= 1)) {
+    if((starCount1 >= 1) || (starCount2 >= 1)) {
       level1World.removeSprite(star);
       
     } else {
@@ -454,17 +491,10 @@ if(currentScreen.getScreenTime()/1000 >= 8){
       level1World.removeSprite(star);
       star.moveTo(randoX, randoY);
       level1World.showWorldSprites();
+    }
+  
   }
-  //   } else{
-  //     for(int i = 0; i < level1World.getSprites().size(); i++){
-
-  //     level1World.getSprites().get(i).move(10, 10);
-  //   }
-      //level1World.getSprites().get(i).move(0, 0);
-  }
-    //10% of the time, decide to add an enemy image to a Tile
     
-
 }
 
 //Method to move around the enemies/sprites on the screen
@@ -472,36 +502,37 @@ public void moveSprites(){
   // System.out.println("p1 top " + player1.getTop());
   // System.out.println("p1 bottom " + player1.getBottom());
 
-    //loop through alien array list
-    for(int i = 0; i < level1World.getSprites().size(); i++){
+  //loop through alien array list
+  for(int i = 0; i < level1World.getSprites().size(); i++){
 
-      Sprite sprite = level1World.getSprites().get(i);
+    Sprite sprite = level1World.getSprites().get(i);
 
-        if(isCollision(player1, sprite)){
+       if(isCollision(player1, sprite)){
         
-          level1World.removeSprite(sprite);
-           
-        }
-
-        if(isCollision(player2, sprite)){
+        level1World.removeSprite(sprite);
+        alienCount1++;
         
-          level1World.removeSprite(sprite);
-           
+      }
+
+      if(isCollision(player2, sprite)){
+      
+        level1World.removeSprite(sprite);
+        alienCount2++;
+      
+      }
+      if(sprite.getRight() < 0){
+        
+        level1World.removeSprite(sprite);
         }
-        if(sprite.getRight() < 0){
-          
-          level1World.removeSprite(sprite);
-          }
-         }
+      }
 
         //deletes array when off screen
          
-
-        }
-        //System.out.println(loc + " " + grid.hasTileImage(loc));
-
+      //System.out.println(loc + " " + grid.hasTileImage(loc));
           
       //CASE 3: Enemy leaves screen at first column
+   }
+       
 
 
 
@@ -545,6 +576,7 @@ public void endGame(){
     //Update the title bar
 
     //Show any end imagery
-    currentScreen = endScreen;
+
+
 
 }
