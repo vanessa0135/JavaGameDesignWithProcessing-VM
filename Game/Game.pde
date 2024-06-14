@@ -1,3 +1,5 @@
+import processing.sound.*;
+
 /* Game Class Starter File
  * Authors: Vanessa B & Mariam L
  * Last Edit: 6/5/2024
@@ -17,6 +19,7 @@ String p2= "STARS P2 =  ";
 // AnimatedSprite runningHorse;
 // boolean doAnimation;
 
+
 //variables for star counters 
 int starCount1 = 0;
 int starCount2 = 0;
@@ -31,7 +34,9 @@ int score2 = 0;
 Screen splashScreen;
 PImage splashBg;
 String splashBgFile = "images/apcsa.png";
+
 //SoundFile song;
+SoundFile song;
 
 //VARIABLES: Level1World Screen
 // Grid level1Grid;
@@ -158,9 +163,10 @@ void setup() {
   System.out.println("Done loading Level 1 ...");
   
   //SETUP: Sound
+  
   // Load a soundfile from the /data folder of the sketch and play it back
-  // song = new SoundFile(this, "sounds/Lenny_Kravitz_Fly_Away.mp3");
-  // song.play();
+  song = new SoundFile(this, "sounds/GamingMusic.mp3");
+  song.play();
   
   //println("Game started...");
 
@@ -368,7 +374,7 @@ public void updateScreen(){
       }
     }
     // changed to endScreen
-    if(currentScreen == level1World && (level1World.getScreenTime()/1000 > 68) && level1World.getScreenTime()/1000 < 71 ){
+    if((level1World.getScreenTime()/1000 > 68) && level1World.getScreenTime()/1000 < 71 ){
       
       currentScreen = endWorld;
       
@@ -382,7 +388,7 @@ public void updateScreen(){
 
       player1.show();
       player2.show();
-
+      //b1.show();
       System.out.print("2");
 
       textSize(50);
@@ -417,13 +423,13 @@ public void updateScreen(){
 
       if(score1 > score2){
         textSize(50);
-        text("Player 1 Won!", 600, 700);
+        text("Player 1 Won!", 550, 650);
       } else{
         textSize(50);
-        text("Player 2 Won!", 600, 700);
+        text("Player 2 Won!", 550, 650);
       }
 
-       //b1.show();
+       
 
       // if(b1.isClicked()){
       //   currentScreen = splashScreen;
