@@ -154,6 +154,9 @@ public class Button {
     public void setHoverHighlight(boolean b){
         this.doesHoverHighlight = b;
     }
+
+    //Method to pass in a Processing color or null
+    //ie. color(0,0,255) for blue
     public void setHoverColor(Integer hoverColor){
         if(hoverColor != null){
             setHoverHighlight(true);
@@ -165,6 +168,9 @@ public class Button {
     public void setClickHighlight(boolean b){
         this.doesClickHighlight = b;
     }
+
+    //Method to pass in a Processing color or null
+    //ie. color(0,0,255) for blue
     public void setClickColor(Integer clickColor){
         if(clickColor != null){
             setClickHighlight(true);
