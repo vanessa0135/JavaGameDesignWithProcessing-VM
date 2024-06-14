@@ -86,7 +86,8 @@ public class World extends Screen{
       removeSprite(sprite);
       }
     }
-  }
+    
+  
 
   //method to display all the sprites on the screen
   public void showWorldSprites(){
@@ -134,5 +135,5 @@ public class World extends Screen{
     }
     lastSpriteUpdateTime = getScreenTime();
   }
-
 }
+

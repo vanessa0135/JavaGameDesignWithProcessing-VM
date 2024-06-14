@@ -151,7 +151,7 @@ void setup() {
   
   star = new Sprite("images/Star.png", 0.15);
   
-  Button b1 = new Button("rect", 650, 25, 100, 30,"play again");
+  Button b1 = new Button("rect", 650, 25, 100, 30, "play again");
 
 
   // walkingChick = new AnimatedSprite("sprites/chick_walk.png", "sprites/chick_walk.json", 0.0, 0.0, 5.0);
@@ -299,15 +299,9 @@ public void updateTitleBar(){
 
     surface.setTitle(p1 + score1 + " " + p2 + score2);
 
-    //adjust the extra text as desired
-   
-   
-   
-     
   }
-   
      
-  }
+}
 
 
 //method to update what is drawn on the screen each frame
@@ -330,7 +324,6 @@ public void updateScreen(){
     System.out.print("1");
 
     //Display the Sprites
-
     player1.show();
     player2.show();
 
@@ -338,8 +331,6 @@ public void updateScreen(){
 
     //update other screen elements
     level1World.showWorldSprites();
-
-    //move to next level based on a button click
     
     String st = "GAME BEGINS IN: ";
     if(currentScreen.getScreenTime()/1000 < 8 ){
@@ -380,7 +371,7 @@ public void updateScreen(){
 
       player1.show();
       player2.show();
-      //b1.show();
+      
       System.out.print("2");
 
       textSize(50);
@@ -422,14 +413,14 @@ public void updateScreen(){
       }
 
        
-
+//move to next level based on a button click
+      //b1.show();
       // if(b1.isClicked()){
       //   currentScreen = splashScreen;
       //   System.out.println("\nButton Clicked");
       // }
     //endWorld.showWorldSprites();
 
-  
     }
 
   }//UPDATE: End Screen
