@@ -354,19 +354,11 @@ public void updateScreen(){
 
     //deleting sprites before changing screens
     if((currentScreen.getScreenTime()/1000) == 68 ){
-
-    
-    player1.moveTo(1500, 1500);
-    player2.moveTo(1500, 1500);
-    
-    for(int i = 0; i < level1World.getSprites().size(); i++){
-
-      Sprite sprite = level1World.getSprites().get(i);
-
-      level1World.removeSprite(sprite);
-
-      }
+      player1.moveTo(1500, 1500);
+      player2.moveTo(1500, 1500);
+      level1World.clearAllSprites();
     }
+
     // changed to endScreen
     if(currentScreen == level1World && (level1World.getScreenTime()/1000 > 68) && level1World.getScreenTime()/1000 < 71 ){
       
