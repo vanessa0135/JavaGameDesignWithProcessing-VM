@@ -96,8 +96,9 @@ void setup() {
   player1.resize(level1Grid.getTileWidth(),level1Grid.getTileHeight());
   walkingChick = new AnimatedSprite("sprites/chick_walk.png", "sprites/chick_walk.json", 0.0, 0.0, 5.0);
   level1Grid.setTileSprite(new GridLocation (5,5), walkingChick);
-  b1.setButtonColor(color(255,255,255));
-  b1.setHoverColor(color(125,125,0));
+  b1.setTextColor(b1.BLACK);
+  b1.setButtonColor(b1.CYAN);
+  b1.setHoverColor(color(100,50,200));
   b1.setClickColor(null);
   System.out.println("Done loading Level 1 ...");
   
