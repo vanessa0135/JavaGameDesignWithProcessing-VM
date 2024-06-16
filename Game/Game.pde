@@ -447,22 +447,22 @@ if((currentScreen.getScreenTime()/1000 >= 8) && currentScreen == level1World){
     //System.out.println("sprites are being shown");
 
     //sprite handling
-    for(int i = 0; i < level1World.getSprites().size(); i++){
+    for(int i = 0; i < level1World.getNumSprites(); i++){
 
-      level1World.getSprites().get(i).move(-10, 0);
+      level1World.getSprite(i).move(-10, 0);
     }
 
     if(msSprites % 950 == 50) {
 
-      level1World.addSprite(alien1.copyTo(1424, randoY));
+      level1World.addSpriteCopyTo(alien1, 1424, randoY);
     }
     if(msSprites % 1500 == 0){
 
-      level1World.addSprite(alien2.copyTo(1424, randoY));
+      level1World.addSpriteCopyTo(alien2, 1424, randoY);
     }
     if(msSprites % 1040 == 0){
 
-      level1World.addSprite(alien3.copyTo(1424, randoY));
+      level1World.addSpriteCopyTo(alien3, 1424, randoY);
     }
 
     
