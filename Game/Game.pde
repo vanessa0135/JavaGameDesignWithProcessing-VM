@@ -11,6 +11,7 @@
 //VARIABLES: Title Bar
 String titleText = "PeanutChessSkyHorse";
 String extraText = "CurrentLevel?";
+String name = "";
 
 //VARIABLES: Whole Game
 AnimatedSprite runningHorse;
@@ -169,6 +170,10 @@ void keyPressed(){
       player1Row--;
     }
 
+    if(key == 'n'){
+      name = Input.getString("What is your name?");
+    }
+
 
 
   }
@@ -215,7 +220,7 @@ public void updateTitleBar(){
 
   if(!isGameOver()) {
     //set the title each loop
-    surface.setTitle(titleText + "    " + extraText + " " + health);
+    surface.setTitle(titleText + "    " + extraText + " " + name + ": " + health);
 
     //adjust the extra text as desired
   
