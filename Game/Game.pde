@@ -151,7 +151,7 @@ void setup() {
   
   star = new Sprite("images/Star.png", 0.15);
   
-  Button b1 = new Button("rect", 650, 25, 100, 30, "play again");
+  b1 = new Button("rect", 650, 48, 110, 52, "play again");
 
 
   // walkingChick = new AnimatedSprite("sprites/chick_walk.png", "sprites/chick_walk.json", 0.0, 0.0, 5.0);
@@ -375,6 +375,7 @@ public void updateScreen(){
       System.out.print("2");
 
       textSize(50);
+      //fill(255, 255, 255);
       text("SUMMARY", 600, 200);
       fill(255, 255, 255);
 
@@ -391,7 +392,7 @@ public void updateScreen(){
       text("Player 1 total score: " + score1, 300, 500);
       fill(255, 255, 255);
 
-      //player 2 summary
+      //player 2 summary  
       textSize(30);
       text("Player 2 star collected: " + starCount2, 800, 300);
       fill(255, 255, 255);
@@ -404,21 +405,52 @@ public void updateScreen(){
       text("Player 2 total score: " + score2, 800, 500);
       fill(255, 255, 255);
 
+      
+      
+
       if(score1 > score2){
         textSize(50);
         text("Player 1 Won!", 550, 650);
-      } else{
+      } else if(score1 < score2){
         textSize(50);
         text("Player 2 Won!", 550, 650);
+      } else{
+        textSize(50);
+        text("It was a Tie! Try Again", 550, 650);
       }
+
+      // rectMode(CORNERS);
+      // fill(210, 102, 0);
+      // rect(650, 48, 750, 100);
+      // textSize(20);
+      // fill(255, 255, 255);
+      // text("Play again?", 655, 80);
+      
+
 
        
 //move to next level based on a button click
-      //b1.show();
-      // if(b1.isClicked()){
-      //   currentScreen = splashScreen;
-      //   System.out.println("\nButton Clicked");
-      // }
+      b1.show();
+      if(b1.isClicked()){
+        currentScreen = level1World;
+        System.out.println("\nButton Clicked");
+        starCount1 = 0;
+        starCount2 = 0;
+        alienCount1 = 0;
+        alienCount2 = 0;
+        score1 = 0;
+        score2 = 0;
+        msElapsed = 0;
+        level1World.clearAllSprites();
+
+        player1.show();
+        player2.show();
+        player1.moveTo(50, 800/2);
+        player2.moveTo(50, 400/2);
+        
+        
+
+      }
     //endWorld.showWorldSprites();
 
     }
